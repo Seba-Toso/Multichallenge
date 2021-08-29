@@ -1,0 +1,23 @@
+.card{
+  .lead{
+    background-color: #ccc;
+    overflow: hidden;
+  }
+  .substract{
+    background-color: rgba(220, 20, 60, 0.30);
+    border: none;
+    transition: 200ms ease-in-out;
+  }
+  .add{
+    background-color: rgba(0, 128, 0, 0.30);
+    border: none;
+  }
+  .substract:hover{
+    background-color: rgba(255, 22, 22, 0.5);
+    border: none;
+  }
+  .add:hover{
+    background-color: rgba(0, 186, 0, 0.3);
+    border: none;
+  }
+}

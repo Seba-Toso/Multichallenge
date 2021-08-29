@@ -1,9 +1,6 @@
 import {
-  BrowserRouter as Router,
-  HashRouter,
   Switch,
   Route,
-  Link,
 } from "react-router-dom";
 
 import MainHome from "../pages/MainHome";
