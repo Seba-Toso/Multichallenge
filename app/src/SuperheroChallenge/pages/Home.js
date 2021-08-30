@@ -1,11 +1,17 @@
-import { useReducer } from 'react';
-import { initialState, HeroReducer } from '../services/state';
+import { useEffect } from 'react';
 import {Link, useHistory} from 'react-router-dom'
+import { usePersistedContext } from 'react-persist-context'
 
 
-const Home = () => {
-  const [state, dispatch] = useReducer(HeroReducer, initialState);
+const Home = ({test}) => {
+  const { state, dispatch } = usePersistedContext()
   const history = useHistory()
+
+  console.log(test);
+
+  useEffect(() => {
+    console.log(state.team.heroes);
+  }, [state])
 
   const logout = () => {
       dispatch({type: 'LOGGOUT'})

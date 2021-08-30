@@ -13,6 +13,7 @@ export const login = async (email, password) => {
 }
 
 export const searchHero = async (name, id) => {
+  console.log(name+' - '+id);
   try {
     const response = await axios.get(`http://localhost:3001/SuperHeroApp/getHeroes`,{
       params:{

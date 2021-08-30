@@ -50,7 +50,7 @@ const Forms = ({...fields}) => {
 		}
 		if(fields.type === 'search'){
 			dispatch({type: 'GET_HEROES'})
-			searchHero(values.name, values.password)
+			searchHero(values.name, values.id)
 			.then((result)=>{
 				dispatch({type: 'GET_HEROES_SUCCESS', payload: result})
 				fields.setFindedHeros(result)

@@ -1,23 +1,46 @@
 .card{
+  box-shadow: -10px 0px 12px -3px #000000aa;
+  overflow: hidden;
+  width: 60%;
   .lead{
-    background-color: #ccc;
+    font-size: 1.5rem;
+    background: transparent;
+    color: aliceblue;
     overflow: hidden;
+    padding: 5px;
   }
   .substract{
-    background-color: rgba(220, 20, 60, 0.30);
+    padding: 10px;
+    background: rgba(220, 20, 60, 0);
     border: none;
     transition: 200ms ease-in-out;
   }
   .add{
-    background-color: rgba(0, 128, 0, 0.30);
+    padding: 10px;
+    background: rgba(0, 128, 0, 0);
     border: none;
+    transition: 200ms ease-in-out;
   }
   .substract:hover{
-    background-color: rgba(255, 22, 22, 0.5);
+    background: crimson;
     border: none;
   }
   .add:hover{
-    background-color: rgba(0, 186, 0, 0.3);
+    background: #ffc107;
     border: none;
+  }
+  .card-detail-button{
+    text-align: center;
+    text-decoration: none;
+    font-size: 1rem;
+    border: none;
+    border-radius: 0;
+    height: fit-content;
+    padding: 5px;
+    transition: 200ms ease-in-out;
+  }
+  .card-detail-button:hover{
+    background: #333;
+    color: #ffc107;;
   }
 }

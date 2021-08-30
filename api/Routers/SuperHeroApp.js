@@ -26,9 +26,13 @@ superHeroAppRouter.get('/', (req, res, next) => {
 superHeroAppRouter.get('/getHeroes', async (req, res, next) => {
   const { name, id } = req.query
   const url = name? `https://superheroapi.com/api/${TOKEN}/search/${name}` : `https://superheroapi.com/api/${TOKEN}/${id}`
-
   try {
     const response = await axios.get(url)
+    if(id && response){
+      const {id, name, powerstats, biography,appearance, work, connections, image } = response.data
+      const result = {'response': response.data.response, 'results-for': id, results: [{id, name, powerstats, biography, appearance, work, connections, image}]}
+      return res.status(200).send(result)
+    }
     res.status(200).send(response.data)
   } catch (error) {
     console.log(error)
