@@ -2,7 +2,8 @@ import React from 'react'
 import Card from './Card'
 import { motion } from "framer-motion"
 
-const Pagination = ({findedHeros, addHero, removeHero}) => {
+
+const Pagination = ({findedHeros}) => {
 
   const makePagination = () => {
     const HeroPages = []
@@ -25,7 +26,7 @@ const Pagination = ({findedHeros, addHero, removeHero}) => {
     return heroesArrayPaginated.map( (hero, index) => {
         return (
             <motion.li key={hero.id} style={{zIndex: index+1, marginRight: '-300px', padding: '0.5rem', borderRadius: '5px'}} whileHover={{ marginRight: "0px", marginLeft: '10px', zIndex: 9999 }}>
-                <Card id={hero.id} name={hero.name} image={hero.image.url} alignment={hero.biography.alignment} addHero={addHero} removeHero={removeHero}/>  
+                <Card hero={hero}/>  
             </motion.li>
         )
     })

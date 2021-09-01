@@ -44,7 +44,7 @@ const SuperHeroRouter = () => {
   const store = {
     state: initialState,
     reducer: HeroReducer
-}
+  }
 
   return (
       <div className="Routes">

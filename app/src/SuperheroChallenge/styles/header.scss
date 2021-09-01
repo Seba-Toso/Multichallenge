@@ -1,0 +1,17 @@
+@import '~bootstrap/scss/bootstrap.scss';
+
+.header{
+  .previous-page{
+    border: 2px solid #f0f0f0;
+    border-radius: 50%;
+    background-color: #f0f0f010;
+    transition: all 200ms ease-in-out;
+    cursor: pointer;
+  }
+  .previous-page:hover{
+    border: 2px solid #f0f0f0;
+    border-radius: 50%;
+    background-color: #f0f0f030;
+  }
+  
+}

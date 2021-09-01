@@ -16,6 +16,7 @@
     "start": "npm run start --workspace=api",
     "start:app": "npm run start --workspace=app",
     "start:api": "npm run dev --workspace=api",
+    "start:full": "npm run dev --workspace=api && npm run start --workspace=app",
     "dev:api": "npm run build && npm run dev --workspace=api"
   },
   "author": "Seba Toso",

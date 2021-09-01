@@ -14,24 +14,28 @@ const HeroDetails = () => {
     }
 
     const { id } = useParams();
+    const { heroes } = state.team
     useEffect(() => {
+        dispatch({type: 'GET_HEROES'})
         const fetchHero = async () => {
             let name=''
             try {
                 const result = await searchHero(name,id)
                 setHero(result[0])
+                dispatch({type: 'GET_HEROES_SUCCESS'})
             } catch (error) {
                 console.log(error);
+                dispatch({type: 'GET_HEROES_ERROR'})
             }
         }
 
-        if(state.team.heroes.find(hero => hero.id === id)){
-            let heroInState = state.team.heroes.find(hero => hero.id === id)
+        if(heroes.find(hero => hero.id === id)){
+            let heroInState = heroes.find(hero => hero.id === id)
             return setHero(heroInState)
         }else{
             fetchHero()
         }
-    }, [id, state])
+    }, [id, heroes, dispatch])
     
 
     const makeSlider = (id, stats) => {
@@ -43,14 +47,13 @@ const HeroDetails = () => {
         }
         console.log(arrayOfStats);
         return (
-            <div id={id} class="carousel carousel-dark slide w-75" data-bs-ride="carousel">
-                <div class="carousel-inner w-100 h-100">
+            <div id={id} className="carousel carousel-dark slide w-75" data-bs-ride="carousel">
+                <div className="carousel-inner w-100 h-100">
                     {
                         arrayOfStats.map((stat, index) => {
                             return (
-                            
-                                <div class={`carousel-item ${index === 0 ? 'active' : null } w-100`} data-bs-interval="10000" style={{height:'140%'}}>
-                                    <div class="carousel-caption d-none d-md-block p-0 m-0">
+                                <div key={stat} className={`carousel-item ${index === 0 ? 'active' : null } w-100`} data-bs-interval="10000" style={{height:'140%'}}>
+                                    <div className="carousel-caption d-none d-md-block p-0 m-0">
                                         <h5 className='m-0 p-0 display-6' style={{fontSize: '1.9rem'}}>{stat}</h5>
                                     </div>
                                 </div>
@@ -58,25 +61,25 @@ const HeroDetails = () => {
                         })
                     }
                 </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target={'#'+id} data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target={'#'+id} data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
+                <button className="carousel-control-prev" type="button" data-bs-target={'#'+id} data-bs-slide="prev" style={{visibility: arrayOfStats.length >= 2 ? 'visible' : 'hidden'}}>
+                    <span className="carousel-control-prev-icon" aria-hidden="false"></span>
+                    <span className="visually-hidden">Previous</span>
+                </button>
+                <button className="carousel-control-next" type="button" data-bs-target={'#'+id} data-bs-slide="next" style={{visibility: arrayOfStats.length >= 2 ? 'visible' : 'hidden'}}>
+                    <span className="carousel-control-next-icon" aria-hidden="false"></span>
+                    <span className="visually-hidden">Next</span>
+                </button>
             </div>
         )
     }
     
-    if(!hero){
+    if(state.isFetching && !hero){
         return null
     }
     return (
         <div className="mainHome-Container d-flex justify-content-center align-items-center flex-column">
             <div className='pb-5 h-25'>
-                <h1 className='display-1 '> Hero Details </h1>
+                <h1 className='display-1'> Hero Details </h1>
             </div>
             <div className='pb-4 w-75'>
                 <div className="card w-100 h-100 border-warning" >
@@ -85,11 +88,11 @@ const HeroDetails = () => {
                             <img src={hero?.image?.url || 'Hero Name'} className="img-fluid rounded-start h-100 w-100" alt="..."/>
                         </div>
                         <div className="col-md-8">
-                            <div class="card-header bg-warning">
+                            <div className="card-header bg-warning">
                                 <h5 className="card-title display-2">{hero?.name || 'Hero Name'}</h5>
                             </div>
                             <div className="card-body">
-                                <p className="card-text">
+                                <div className="card-text">
                                     <ul className="list-group list-group-flush">
                                         <li className="list-group-item d-flex justify-content-between">
                                             <h5 className='d-inline display-6 m-0 p-0'>Nombre: </h5>
@@ -120,8 +123,7 @@ const HeroDetails = () => {
                                             {hero?.work?.base.length > 1 ? makeSlider('trabajo', hero?.work?.base) : hero?.work?.base}
                                         </li>                               
                                     </ul>
-                                </p>
-                                <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
+                                </div>
                             </div>
                         </div>
                     </div>

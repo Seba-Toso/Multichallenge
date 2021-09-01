@@ -26,7 +26,7 @@ const Validations = (type) => {
 		:
 		Yup.object().shape({			
 			name: Yup.string()
-				.min(3, 'Too Short!')
+				.min(1, 'Too Short!')
 				.max(20, 'Too Long!'),
 			id:	Yup.number()
 				.min(1, 'Too Short!')
