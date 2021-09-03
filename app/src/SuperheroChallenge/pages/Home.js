@@ -1,9 +1,11 @@
-import {Link, useHistory} from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
 import { usePersistedContext } from 'react-persist-context'
 import Header from '../components/Header'
 import Pagination from '../components/Pagination'
 import PonderedStats from '../components/PonderedStats'
+import * as Ricons from 'react-icons/gr'
 
+import '../styles/home.scss'
 
 const Home = () => {
   const { state, dispatch } = usePersistedContext()
@@ -37,16 +39,16 @@ const Home = () => {
 
   const createTeamCards = () => {
     if(state.team.heroes.length === 0){
-      return <p className='display-6 lead text-light'> Here you could see your team. ¡IF YOU HAD ONE! </p>
+      return <p className='display-6 lead text-light text-center'> Here you could see your team.<br/><p className='display-5 text-warning'>¡IF YOU HAD ONE!</p></p>
     }
     return <Pagination findedHeros={state.team.heroes} />
   }
 
   return (
-    <div className="mainHome-Container d-flex justify-content-center align-items-center flex-column">
-          <Header title='Welcome Hero'/>
-      <div className='pb-4 d-flex align-content-center w-100 px-3'>
-        <div className='col-md-4'>
+    <div className="Superhero-Home-Container">
+      <Header title='Welcome Hero'/>
+      <div className='pb-4 d-md-flex align-content-center w-100 px-3'>
+        <div className='col-md-4 p-4 my-5'>
           <PonderedStats unponderedStats={teamPowerstats} title='Team Powerstats'/>
         </div>
         <div className='col-md-8 px-3'>
@@ -55,12 +57,15 @@ const Home = () => {
         }
         </div>
       </div>
-      <div className='mainHome-Selector'>
-          <Link to='/Alkemy-Superhero/find-a-hero' className="btn btn-outline-dark btn-sm">Search for heroes</Link>
-      </div>
-      <button onClick={logout}>LOGOUT</button>
-      <div>
-          {state.isLogged ? 'si' : 'no'}
+      <div className='Superhero-Home-Footer d-flex display-4 text-center'>
+        <button className='bg-warning w-50 d-flex justify-content-around align-items-center' onClick={() => history.push('/Alkemy_Superhero/find-a-hero')}>
+          <p className='text-dark'>Search for heroes</p>
+          <Ricons.GrSearchAdvanced />
+        </button>
+        <button className='bg-danger w-50 d-flex justify-content-around align-items-center' onClick={logout}>
+          <p className='text-dark'>Logout</p>
+          <Ricons.GrLogout />
+        </button>
       </div>
     </div>
   )

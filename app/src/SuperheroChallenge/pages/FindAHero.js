@@ -1,14 +1,17 @@
 import { useState } from 'react';
-import Forms from '../components/Forms'
-import {Link} from 'react-router-dom'
-import Pagination from '../components/Pagination';
+import {useHistory} from 'react-router-dom'
 import { usePersistedContext } from 'react-persist-context'
+import Forms from '../components/Forms'
+import Header from '../components/Header';
+import Pagination from '../components/Pagination';
+import * as Ricons from 'react-icons/gr'
+import '../styles/findHero.scss'
 
 const FindAHero = () => {
     const { state, dispatch } = usePersistedContext()
 
     const [findedHeros, setFindedHeros] = useState([]);
-
+    const history = useHistory()
     const addHero = (id) => {
         dispatch({type: 'ADD_HERO'})
         const selectedHero = findedHeros.find(hero => hero.id === id)
@@ -52,31 +55,37 @@ const FindAHero = () => {
         alert('Hero removed from your team')
         dispatch({type: 'REMOVE_HERO_SUCCESS', payload: {good: updatedGood, bad: updatedBad, heroes: updatedHeroes}})
     }
-
+    const logout = () => {
+        dispatch({type: 'LOGGOUT'})
+        dispatch({type: 'LOGGOUT_SUCCESS'})
+        localStorage.removeItem('token')
+        history.push('/Alkemy_Superhero/access')
+    }
 
     return (
-        <div className="mainHome-Container d-flex justify-content-start align-items-start flex-column">
-            <div className='pb-5'>
-                <h1 className='display-1 '> Search a New Hero </h1>
-                <div className='mainHome-Selector mt-3'>
-                    <Link to='/Alkemy_Superhero' className="btn btn-outline-dark btn-sm mx-2">Back Home</Link>
-                </div>
-            </div>
-            <div className='pb-4'>
-                <p className='display-6 lead'> What hero will you choose? </p>
-            </div>
-            <div className='mainHome-Selector d-flex w-100'>
-                <span className='mx-2 w-25'>
+        <div className="Superhero-Home-Container">
+            <Header title='Hall of Fame' />
+            <div className='mainHome-Selector d-md-flex w-100 py-4'>
+                <div className='mx-5 pb-5'>
                     <Forms name id type='search' setFindedHeros={setFindedHeros}/>
-                </span>
-                <span className='mx-3 w-75'>
+                </div>
+                <div className='mx-3 my-5'>
                 {
                     findedHeros.length > 0 && 
                     <Pagination findedHeros={findedHeros} addHero={addHero} removeHero={removeHero}/>
                 }
-                </span>
+                </div>
             </div>
-
+            <div className='Superhero-Home-Footer d-flex display-4 text-center'>
+                <button className='bg-warning w-50 d-flex justify-content-around align-items-center' onClick={() => window.scrollTo(0,0)}>
+                    <p className='text-dark'>Go Top</p>
+                    <Ricons.GrFormUp />
+                </button>
+                <button className='bg-danger w-50 d-flex justify-content-around align-items-center' onClick={logout}>
+                    <p className='text-dark'>Logout</p>
+                    <Ricons.GrLogout />
+                </button>
+            </div>
         </div>
     )
 }

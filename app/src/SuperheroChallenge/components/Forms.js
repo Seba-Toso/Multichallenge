@@ -1,6 +1,6 @@
-import React, { useReducer } from 'react';
+import React from 'react';
 import {useHistory} from 'react-router-dom'
-import { initialState, HeroReducer } from '../services/state';
+import { usePersistedContext } from 'react-persist-context'
 import { Formik, Field, Form } from 'formik';
 import * as Yup from "yup";
 import * as Ricons from 'react-icons/gr'
@@ -36,7 +36,7 @@ const Validations = (type) => {
 }
 
 const Forms = ({...fields}) => {
-	const [state, dispatch] = useReducer(HeroReducer, initialState);
+	const { state, dispatch } = usePersistedContext()
 	const history = useHistory()
 	
 	const handleSubmit = (values) => {
@@ -142,7 +142,7 @@ const Forms = ({...fields}) => {
 					id="name"
 					name="name"
 					placeholder=""
-					type="name"
+					type="text"
 					className='form-control'
 					style={
 						errors.name && touched.name ? {border: '1px solid crimson', backgroundColor: '#ed143d30'} : 
@@ -179,7 +179,7 @@ const Forms = ({...fields}) => {
 					/>
 					</>
 				}
-        <button type="submit" className='btn btn-outline-warning mt-2 w-100 d-flex justify-content-between align-items-center'>
+        <button type="submit" className='btn btn-outline-warning mt-4 w-25 d-flex justify-content-between align-items-center'>
 					{
 						fields.email ?
 						<><span>Continue</span><Ricons.GrFormNext/></>

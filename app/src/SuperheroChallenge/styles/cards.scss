@@ -2,6 +2,8 @@
   box-shadow: -10px 0px 12px -3px #000000aa;
   overflow: hidden;
   width: 60%;
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
   .lead{
     font-size: 1.5rem;
     background: transparent;
@@ -11,13 +13,13 @@
   }
   .substract{
     padding: 10px;
-    background: rgba(220, 20, 60, 0);
+    background: #0f0f0f;
     border: none;
     transition: 200ms ease-in-out;
   }
   .add{
     padding: 10px;
-    background: rgba(0, 128, 0, 0);
+    background: #0f0f0f;
     border: none;
     transition: 200ms ease-in-out;
   }

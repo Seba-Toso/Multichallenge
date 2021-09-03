@@ -1,8 +1,10 @@
 @import '~bootstrap/scss/bootstrap.scss';
 
 .mainHome-Container{
-    height: 100vh;
+    min-height: 100vh;
+    height: 100%;
     margin-top: -2rem;
+    background-color: #0f0f0f;
     .display-1{
         font-size: 8rem;
         font-weight: 500;
