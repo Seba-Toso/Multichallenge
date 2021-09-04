@@ -1,44 +1,58 @@
 import * as Ricons from 'react-icons/io5'
-import {useHistory} from 'react-router-dom'
-import { usePersistedContext } from 'react-persist-context'
+import {RiTeamFill} from 'react-icons/ri'
+
 import '../styles/header.scss'
 
-
-const Header = ({title}) => {
-  const { state, dispatch } = usePersistedContext()
-  const history = useHistory()
-  
-  const logout = () => {
-    dispatch({type: 'LOGGOUT'})
-    dispatch({type: 'LOGGOUT_SUCCESS'})
-    localStorage.removeItem('token')
-    history.push('/Alkemy_Superhero/access')
-  }
+const Header = ({title, buttonAction, secondButtonAction, icon, secondIcon}) => {
+  const showHeaderButton = window.innerWidth <= 426
 
   const iconSelector = () => {
     switch (title) {
       case 'Hall of Fame':
-        return <Ricons.IoFlame className='display-2 p-3' size={36}/>
-      case 'Welcome Hero':
-        return <Ricons.IoHome className='display-2 p-3' size={36}/>
-      
+        return <Ricons.IoTrophySharp size={32}/>
+
+      case 'Team':
+        return <RiTeamFill size={32}/>
+
       default:
-        return <Ricons.IoReader className='display-2 p-3' size={36}/>  
+        return <Ricons.IoPerson size={32}/>  
     }
   }
 
   return (
-    <div className="header mt-0 text-light" style={{backgroundColor: '#f0f0f010'}}>
+    <div className="header mt-0 text-light">
       <div className="row w-100">
-        <div className="col-2">
+
+        <div className="col-4 d-flex">
+          {
+            !showHeaderButton && 
+            <div className='d-flex justify-content-start align-items-center h-100 mx-5' >
+              <button className='text-light d-flex align-items-center' onClick={buttonAction}>
+                  {icon}
+              </button>
+            </div>
+          }
+          {  
+            secondButtonAction && !showHeaderButton && 
+            <div className='d-flex justify-content-start align-items-center h-100 mx-5' >
+              <button className='text-light d-flex align-items-center' onClick={secondButtonAction}>
+                  {secondIcon}
+                  <p className='display-5 p-0 m-0 mx-4'>Search Hero</p>
+              </button>
+            </div>
+          }
+        </div>
+
+        <div className={`${showHeaderButton ? 'col-11' : 'col-7'} m-0 p-0 px-5`}>
+          <h1>{title}</h1>
+        </div>
+
+        <div className="col-1">
           <div className='d-flex justify-content-center align-items-center h-100' >
             {
               iconSelector()
             }
           </div>
-        </div>
-        <div className="col-6 m-0 p-0 px-2">
-          <h1>{title}</h1>
         </div>
       </div>
     </div>

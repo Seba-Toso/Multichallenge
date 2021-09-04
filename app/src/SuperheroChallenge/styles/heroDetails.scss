@@ -4,29 +4,6 @@
     background-color: #0f0f0f;
     color: aliceblue;
     overflow: hidden;
-    .form{
-        font-size: 2.5rem;
-        input{
-            font-size: 2.5rem;
-            color: white;
-            background-color: #0f0f0f;
-        }
-        input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-        input[type="number"] {
-            -moz-appearance: textfield;
-        }
-        .btn-outline-warning{
-            background-color: #ffdb7050;
-            font-size: 2.5rem;
-        }
-        .btn-outline-warning:hover{
-            background-color: #ffc107;
-        }
-    }
     .Superhero-Home-Footer{
         position: fixed;
         bottom: 0;
@@ -52,13 +29,22 @@
 }
 
 @media screen and (min-width: 758px)  {
-    .card{
+    .Superhero-details{
         width: 80% !important;
         max-width: unset;
+        .card-body, .card-text{
+            height: 100% !important;
+        }
         img{
             max-height: unset !important;
             max-width: 100% !important;
             height: auto !important;
+        }
+        ul{
+            height: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important;
         }
         li{
             padding: 1rem;
@@ -67,6 +53,7 @@
             font-size: 8rem !important;
         }
         button{
+            padding: 2rem !important;
             svg{
                 width: 36px !important;
                 height: 36px !important;

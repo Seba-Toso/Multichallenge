@@ -3,13 +3,12 @@ import { useState } from "react";
 import { wrap } from "popmotion";
 import { motion, AnimatePresence } from "framer-motion";
 import Card from "./Card";
-import * as Ricons from 'react-icons/io5'
 
 const variants = {
   enter: (direction) => {
     return {
       scale: 0,
-      x: direction > 0 ? 1000 : -1000,
+      x: direction > 0 ? 10000 : -10000,
       opacity: 0
     };
   },
@@ -23,7 +22,7 @@ const variants = {
     return {
       scale: 0,
       zIndex: 0,
-      x: direction < 0 ? 1000 : -1000,
+      x: direction < 0 ? 10000 : -10000,
       opacity: 0
     };
   }
@@ -31,7 +30,7 @@ const variants = {
 
 const swipeConfidenceThreshold = 10000;
 const swipePower = (offset, velocity) => {
-  return Math.abs(offset) * velocity * 4;
+  return Math.abs(offset) * velocity * 10;
 };
 
 const CardStack = ({heroPage}) => {
@@ -43,10 +42,10 @@ const CardStack = ({heroPage}) => {
   };
 
   return (
-    <div className='d-flex flex-column align-items-center'>
+    <div className='d-flex flex-column align-items-center' >
       <AnimatePresence initial={false} custom={direction}>
         <motion.div
-          className='text-center w-100 h-100'
+          className='text-center w-100'
           key={page}
           children={<Card hero={heroPage[stackIndex]} displayOneByOne/>}
           custom={direction}
@@ -55,8 +54,8 @@ const CardStack = ({heroPage}) => {
           animate="center"
           exit="exit"
           transition={{
-            x: { type: "spring", stiffness: 2000, damping: 50, duration: 0.1 },
-            opacity: { duration: 1 },
+            x: { type: "spring", stiffness: 99999, damping: 50, duration: 10 },
+            opacity: { type: "spring", stiffness: 99999, damping: 50, duration: 0 },
           }}
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}
@@ -72,17 +71,6 @@ const CardStack = ({heroPage}) => {
           }}
         />
       </AnimatePresence>
-      <div className='p-1 my-4 text-muted'>
-          <Ricons.IoChevronBack size={23}/>
-          <Ricons.IoChevronBack size={23}/>
-          <Ricons.IoChevronBack size={23}/>
-          <Ricons.IoChevronBack size={23}/>
-          <p className='display-5' style={{display: 'inline-block', verticalAlign: 'middle'}}>Swipe to change</p>
-          <Ricons.IoChevronForward size={23}/>
-          <Ricons.IoChevronForward size={23}/>
-          <Ricons.IoChevronForward size={23}/>
-          <Ricons.IoChevronForward size={23}/>
-      </div>
     </div>
   );
 };

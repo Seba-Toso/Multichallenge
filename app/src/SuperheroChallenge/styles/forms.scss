@@ -1,4 +1,7 @@
 .form{
+  input, input:focus{
+    background-color: transparent;
+  }
   .error{
     color: crimson;
   }

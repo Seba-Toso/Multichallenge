@@ -12,16 +12,14 @@ const Validations = (type) => {
 	return type === 'login' ?
 		Yup.object().shape({
 			email: Yup.string()
-				.email('Invalid email')
-				.min(2, 'Too Short!')
-				.max(20, 'Too Long!')
+				.email('This is not an email')
 				.required('Required')
-				.matches('challenge@alkemy.org', 'Noup'),
+				.matches('challenge@alkemy.org', 'Not that one'),
 			password: Yup.string()
 				.min(2, 'Too Short!')
 				.max(10, 'Too Long!')
 				.required('Required')
-				.matches('react', 'Double Noup'),
+				.matches('react', 'Neither this one'),
 		})
 		:
 		Yup.object().shape({			
@@ -36,6 +34,7 @@ const Validations = (type) => {
 }
 
 const Forms = ({...fields}) => {
+	
 	const { state, dispatch } = usePersistedContext()
 	const history = useHistory()
 	
@@ -47,6 +46,9 @@ const Forms = ({...fields}) => {
 				dispatch({type: 'LOGIN_SUCCESS', payload: true})
 				history.push('/Alkemy_Superhero')
 			})
+			.finally(() => {
+				dispatch({type: 'CLEAR_FETCHING'})
+			})
 		}
 		if(fields.type === 'search'){
 			dispatch({type: 'GET_HEROES'})
@@ -54,6 +56,9 @@ const Forms = ({...fields}) => {
 			.then((result)=>{
 				dispatch({type: 'GET_HEROES_SUCCESS', payload: result})
 				fields.setFindedHeros(result)
+			})
+			.finally(() => {
+				dispatch({type: 'CLEAR_FETCHING'})
 			})
 		}
 	}
@@ -70,7 +75,7 @@ const Forms = ({...fields}) => {
     onSubmit={async (values) => {handleSubmit(values)}}
     >
     {({ errors, touched }) => (
-    <Form className='form'>
+    <Form className='form' autoComplete='off'>
 
 				{
 					fields.email && 
@@ -89,7 +94,7 @@ const Forms = ({...fields}) => {
 					name="email"
 					placeholder=""
 					type="email"
-					className='form-control'
+					className='form-control text-light p-3'
 					style={
 						errors.email && touched.email ? {border: '1px solid crimson', backgroundColor: '#ed143d30'} : 
 						!errors.email && touched.email ? {border: '1px solid green', backgroundColor: '#00800030'} :
@@ -116,7 +121,7 @@ const Forms = ({...fields}) => {
 					name="password"
 					placeholder=""
 					type="password"
-					className='form-control'
+					className='form-control text-light p-3'
 					style={
 						errors.password && touched.password ? {border: '1px solid crimson', backgroundColor: '#ed143d30'} : 
 						!errors.password && touched.password ? {border: '1px solid green', backgroundColor: '#00800030'} :
@@ -143,7 +148,7 @@ const Forms = ({...fields}) => {
 					name="name"
 					placeholder=""
 					type="text"
-					className='form-control'
+					className='form-control text-light p-3'
 					style={
 						errors.name && touched.name ? {border: '1px solid crimson', backgroundColor: '#ed143d30'} : 
 						!errors.name && touched.name ? {border: '1px solid green', backgroundColor: '#00800030'} :
@@ -170,7 +175,7 @@ const Forms = ({...fields}) => {
 					name="id"
 					placeholder=""
 					type="number"
-					className='form-control'
+					className='form-control text-light p-3'
 					style={
 						errors.id && touched.id ? {border: '1px solid crimson', backgroundColor: '#ed143d30'} : 
 						!errors.id && touched.id ? {border: '1px solid green', backgroundColor: '#00800030'} :
@@ -179,7 +184,7 @@ const Forms = ({...fields}) => {
 					/>
 					</>
 				}
-        <button type="submit" className='btn btn-outline-warning mt-4 w-100 d-flex justify-content-between align-items-center' disabled={state.isFetching ? true : false}>
+        <button type="submit" className='btn btn-outline-warning mt-5 p-3 w-100 d-flex justify-content-between align-items-center' disabled={state.isFetching ? true : false}>
 					{
 						(state.isFetching && 'Loading')||<span>{fields.email ? 'Continue' : 'Search'}</span>
 					}

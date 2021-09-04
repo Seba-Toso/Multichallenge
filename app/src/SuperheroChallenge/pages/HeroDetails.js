@@ -30,19 +30,22 @@ const HeroDetails = () => {
             let name=''
             try {
                 const result = await searchHero(name,id)
-                setHero(result[0])
                 dispatch({type: 'GET_HEROES_SUCCESS'})
+                setHero(result[0])
             } catch (error) {
-                console.log(error);
                 dispatch({type: 'GET_HEROES_ERROR'})
+                console.log(error);
+            } finally{
+                dispatch({type: 'CLEAR_FETCHING'})
             }
         }
 
         if(heroes.find(hero => hero.id === id)){
             let heroInState = heroes.find(hero => hero.id === id)
+            dispatch({type: 'CLEAR_FETCHING'})
             return setHero(heroInState)
         }else{
-            fetchHero()
+            return fetchHero()
         }
     }, [id, heroes, dispatch])
     
@@ -80,10 +83,14 @@ const HeroDetails = () => {
     }
     return (
         <div className="Superhero-Home-Container">
-            <Header title={hero?.name || 'Hero Name'}/>
-            <div className='py-2 w-100'>
+            <Header 
+                title={hero?.name || 'Hero Name'} 
+                buttonAction={() => history.goBack()} 
+                icon={<Ricons.IoArrowBack size={32}/>} 
+            />
+            <div className='py-2 w-100 my-5'>
                 <div className='w-100 d-flex justify-content-center align-content-center'>
-                    <div className="card w-75 h-100 border-warning" >
+                    <div className="card w-75 h-100 border-warning Superhero-details" >
                     <div className="row g-0">
                         <div className="col-md-4">
                             <img src={hero?.image?.url || 'Hero Name'} className="img-fluid rounded" alt="Hero avatar"/>
@@ -91,7 +98,7 @@ const HeroDetails = () => {
                         <div className="col-md-8">
                             <div className="card-body">
                                 <div className="card-text">
-                                    <ul className="list-group list-group-flush">
+                                    <ul className="list-group list-group-flush ">
                                         <li className="list-group-item d-flex justify-content-between">
                                             <h5 className='d-inline display-6 m-0 p-0'>Nombre: </h5>
                                             <p className='d-inline display-6 m-0 p-0'>{hero?.biography?.['full-name']}</p>
@@ -134,14 +141,13 @@ const HeroDetails = () => {
                 </div>
                 </div>
             </div>
-            <div className='Superhero-Home-Footer d-flex display-4 text-center text-light'>
-                <button className='bg-warning w-50 d-flex justify-content-around align-items-center flex-row-reverse' onClick={() => history.goBack()}>
-                    <p>Back</p>
-                    <Ricons.IoArrowBack size={23}/>
+
+            <div className='Superhero-Home-Footer d-flex justify-content-between display-4 text-center text-light'>
+                <button className='bg-warning d-flex justify-content-around align-items-center p-4 m-0' onClick={() => history.goBack()}>
+                    <Ricons.IoArrowBack size={24}/>
                 </button>
-                <button className='bg-danger w-50 d-flex justify-content-around align-items-center' onClick={() => history.push('/Alkemy_Superhero')}>
-                    <p>Home</p>
-                    <Ricons.IoHome size={23}/>
+                <button className='bg-danger d-flex justify-content-around align-items-center p-4 m-0' onClick={() => history.push('/Alkemy_Superhero')}>
+                    <Ricons.IoHome size={24}/>
                 </button>
             </div>
         </div>

@@ -1,21 +1,35 @@
-import * as Ricons from 'react-icons/io5'
+import { useState } from 'react';
 import {Link} from 'react-router-dom'
+import * as Ricons from 'react-icons/io5'
 import { usePersistedContext } from 'react-persist-context'
 import { addHero, removeHero } from '../services/teamActions';
+import { useAlert } from 'react-alert'
 
 import '../styles/cards.scss'
 import jokerImagePlaceholder from '../assets/jokerCardImage.jpg'
-import { useState } from 'react';
 
 const Card = ({hero, displayOneByOne}) => {
+
   const { state, dispatch } = usePersistedContext()
   const [url, setUrl] = useState(hero.image.url || '')
-  const addHeroHandler = () =>{
-    addHero(hero, state['team'], dispatch)
+  const alert = useAlert()
+
+  const fireAlert = (type, message) => {
+    alert.show(message, {
+      timeout: 2000,
+      type: type,
+      containerStyle: {
+        zIndex: 9999
+      }
+    })
+  }
+
+  const addHeroHandler = () => {
+    addHero(hero, state['team'], dispatch, fireAlert)
   }
 
   const removeHeroHandler = () => {
-    removeHero(hero, state['team'], dispatch)
+    removeHero(hero, state['team'], dispatch, fireAlert)
   }
   
   

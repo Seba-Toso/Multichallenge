@@ -4,6 +4,16 @@
     background-color: #0f0f0f;
     color: aliceblue;
     overflow: hidden;
+    .find-hero-form{
+        .display-1{
+            font-size: 6rem;
+        }
+        .display-4{
+            font-size: 3rem;
+            color: rgba(240, 248, 255, 0.2);
+            font-weight: 200;
+        }        
+    }
     .form{
         font-size: 2.5rem;
         input{
@@ -20,11 +30,8 @@
             -moz-appearance: textfield;
         }
         .btn-outline-warning{
-            background-color: #ffdb7050;
             font-size: 2.5rem;
-        }
-        .btn-outline-warning:hover{
-            background-color: #ffc107;
+            font-weight: 400;
         }
     }
     .Superhero-Home-Footer{
@@ -54,6 +61,12 @@
 @media screen and (min-width: 768px) {
     .find-hero-form{
         width: 25% !important;
+        .display-1{
+            font-size: 8rem !important;
+        }
+        .display-4{
+            font-size: 3.5rem !important;
+        }        
     } 
     .find-hero-cards{
         width: 75% !important;
@@ -63,5 +76,8 @@
     }
     button{
         font-size: 5rem;
+    }
+    .Superhero-Home-Footer{
+        display: none !important;
     }
 }

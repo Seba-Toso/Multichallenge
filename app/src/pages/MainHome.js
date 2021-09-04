@@ -5,10 +5,10 @@ const MainHome = () => {
     return (
         <div className="mainHome-Container d-flex justify-content-center align-items-center flex-column">
             <div className='pb-5'>
-                <h1 className='display-1 '> Welcome </h1>
+                <h1 className='display-1'> Welcome </h1>
             </div>
             <div className='pb-4 w-75'>
-                <p className='display-5 lead'> In order to continue surfing this site, please select a Project.</p>
+                <p className='display-4 text-center'> In order to continue surfing this site, please select a Project.</p>
             </div>
             <div className='mainHome-Selector'>
                 <div className="dropdown me-1">

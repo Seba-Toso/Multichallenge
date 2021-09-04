@@ -20,7 +20,7 @@ const Pagination = ({findedHeros}) => {
     return HeroPages.map( (page, index) => {
       return(
         displayOneByOne?
-        <CardStack heroPage={page} />
+        <CardStack heroPage={page} key={index}/>
         :
         (
           <ul key={index} className='p-0 m-0 px-2 d-flex' style={{listStyleType: 'none', overflow:'hidden'}}>

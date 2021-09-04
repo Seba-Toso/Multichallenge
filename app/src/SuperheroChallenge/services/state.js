@@ -10,7 +10,7 @@ export const initialState = {
 }
 
 export const HeroReducer = (state, action) => {
-  console.log(action);
+  //console.log(action);
   switch (action.type) {
     case 'LOGIN': 
       return {...state, isFetching: true, error: false};
@@ -52,6 +52,9 @@ export const HeroReducer = (state, action) => {
       return {...state, isFetching: false, team: action.payload};
       
     case 'REMOVE_HERO_ERROR': 
+      return {...state, isFetching: false};
+
+    case 'CLEAR_FETCHING': 
       return {...state, isFetching: false};
       
     default:
