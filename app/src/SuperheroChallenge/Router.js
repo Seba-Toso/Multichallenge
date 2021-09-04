@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { useReducer } from 'react';
 import { initialState, HeroReducer } from './services/state';
 import { PersistentContextProvider } from 'react-persist-context'
 import { Switch, Route, Redirect, useHistory } from "react-router-dom";
@@ -13,8 +12,7 @@ import AlertTemplate from 'react-alert-template-basic'
 
 
 const SuperHeroRouter = () => {
-  
-  const [state, dispatch] = useReducer(HeroReducer, initialState);
+
   const history = useHistory()
   const deviceWidth = window.innerWidth <= 426
 
@@ -22,7 +20,7 @@ const SuperHeroRouter = () => {
 
   useEffect(() => {
     if(user){
-      history.push('./Alkemy_Superhero')
+      history.push('/Alkemy_Superhero/home')
     }
   },[history, user])
 
@@ -40,11 +38,6 @@ const SuperHeroRouter = () => {
     reducer: HeroReducer
   }
 
-  if(state.isFetching){
-    return (
-      <h1>Fetching</h1>
-    )
-  }
 
   const alertOptions = {
     position: positions.TOP_CENTER,
@@ -65,7 +58,7 @@ const SuperHeroRouter = () => {
             <Route path='/Alkemy_Superhero/access' component={Login}/>'
             <PrivateRoute user={user} path='/Alkemy_Superhero/hero-detail-:id' component={HeroDetails}/>
             <PrivateRoute user={user} path='/Alkemy_Superhero/find-a-hero' component={FindAHero} />
-            <PrivateRoute user={user} path='/Alkemy_Superhero' component={Home}/>
+            <PrivateRoute user={user} path='/Alkemy_Superhero/home' component={Home}/>
           </Switch>
         </AlertProvider>
       </PersistentContextProvider>

@@ -146,7 +146,7 @@ const HeroDetails = () => {
                 <button className='bg-warning d-flex justify-content-around align-items-center p-4 m-0' onClick={() => history.goBack()}>
                     <Ricons.IoArrowBack size={24}/>
                 </button>
-                <button className='bg-danger d-flex justify-content-around align-items-center p-4 m-0' onClick={() => history.push('/Alkemy_Superhero')}>
+                <button className='bg-danger d-flex justify-content-around align-items-center p-4 m-0' onClick={() => history.push('/Alkemy_Superhero/home')}>
                     <Ricons.IoHome size={24}/>
                 </button>
             </div>

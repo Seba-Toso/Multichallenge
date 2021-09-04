@@ -4,6 +4,7 @@ import '../styles/MainHome.scss'
 const MainHome = () => {
     return (
         <div className="mainHome-Container d-flex justify-content-center align-items-center flex-column">
+            <div className='white-decorator-top w-100 bg-light'></div>
             <div className='pb-5'>
                 <h1 className='display-1'> Welcome </h1>
             </div>
@@ -16,10 +17,11 @@ const MainHome = () => {
                         Open this select menu
                     </button>
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><Link to='/Alkemy_Superhero' className='lead'>Alkemy React Challenge - Superhero</Link></li>
+                        <li><Link to='/Alkemy_Superhero/home' className='lead'>Alkemy React Challenge - Superhero</Link></li>
                     </ul>
                 </div>
             </div>
+            <div className='white-decorator-bottom w-100 bg-light'></div>
         </div>
     )
 }

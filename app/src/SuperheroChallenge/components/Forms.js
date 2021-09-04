@@ -36,17 +36,19 @@ const Validations = (type) => {
 const Forms = ({...fields}) => {
 	
 	const { state, dispatch } = usePersistedContext()
-	const history = useHistory()
 	
 	const handleSubmit = (values) => {
 		if(fields.type === 'login'){
 			dispatch({type: 'LOGGIN'})
 			login(values.email, values.password)
-			.then(() => {
-				dispatch({type: 'LOGIN_SUCCESS', payload: true})
-				history.push('/Alkemy_Superhero')
+			.then((res) => {
+				fields.setToken(res.token)
+			})
+			.catch((error)=>{
+				console.log(error)
 			})
 			.finally(() => {
+				console.log('clear fetching');
 				dispatch({type: 'CLEAR_FETCHING'})
 			})
 		}

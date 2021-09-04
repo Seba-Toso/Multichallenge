@@ -3,7 +3,7 @@ import axios from 'axios'
 export const login = async (email, password) => {
   try {
     const response = await axios.post('http://challenge-react.alkemy.org/', {email,password})
-    localStorage.setItem('token', response.data.token)
+    return response.data
   } catch (error) {
     console.log(error);
     console.log(error.config);
@@ -12,7 +12,7 @@ export const login = async (email, password) => {
 
 export const searchHero = async (name, id) => {
   try {
-    const response = await axios.get(`http://localhost:3001/SuperHeroApp/getHeroes`,{
+    const response = await axios.get(`/SuperHeroApp/getHeroes`,{
       params:{
         name,
         id
