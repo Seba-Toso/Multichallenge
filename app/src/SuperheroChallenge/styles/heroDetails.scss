@@ -50,3 +50,27 @@
         }
     }
 }
+
+@media screen and (min-width: 758px)  {
+    .card{
+        width: 80% !important;
+        max-width: unset;
+        img{
+            max-height: unset !important;
+            max-width: 100% !important;
+            height: auto !important;
+        }
+        li{
+            padding: 1rem;
+        }
+        h5{
+            font-size: 8rem !important;
+        }
+        button{
+            svg{
+                width: 36px !important;
+                height: 36px !important;
+            }
+        }
+    }
+}

@@ -49,6 +49,18 @@
 
 @media screen and (min-width: 758px)  {
   .card{
-    font-size: 5rem;
+    max-width: 234px;
+    h5{
+      font-size: 4rem !important;
+    }
+    a{
+      font-size: 3rem !important;
+    }
+    button{
+      font-size: 4rem !important;
+    }
+    img{
+      max-height: 310px;
+    }
   }
 }

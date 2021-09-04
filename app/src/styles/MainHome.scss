@@ -35,8 +35,35 @@
         }
     }
 }
-
 .SuperHero-Routes{
     background-color: #0f0f0f;
     min-height: 100vh;
+}
+
+@media screen and (min-width: 765px) {
+    .mainHome-Container{
+        font-size: 10rem !important;
+        .display-1{
+            color: aliceblue;
+            font-size: 15rem !important;
+            font-weight: 500;
+        }
+        .lead{
+            font-size: 4rem;
+            text-align: center;
+        }
+        input, button{
+            font-size: 4rem;
+        }
+        .mainHome-Selector {
+            .dropdown-menu.show {
+                a{
+                    font-size: 4rem !important;
+                }
+            }
+            select {
+                font-size: 3rem !important;
+            }
+        }
+    }
 }

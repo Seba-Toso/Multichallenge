@@ -1,9 +1,20 @@
 import * as Ricons from 'react-icons/io5'
+import {useHistory} from 'react-router-dom'
+import { usePersistedContext } from 'react-persist-context'
 import '../styles/header.scss'
 
 
 const Header = ({title}) => {
+  const { state, dispatch } = usePersistedContext()
+  const history = useHistory()
   
+  const logout = () => {
+    dispatch({type: 'LOGGOUT'})
+    dispatch({type: 'LOGGOUT_SUCCESS'})
+    localStorage.removeItem('token')
+    history.push('/Alkemy_Superhero/access')
+  }
+
   const iconSelector = () => {
     switch (title) {
       case 'Hall of Fame':
@@ -26,7 +37,7 @@ const Header = ({title}) => {
             }
           </div>
         </div>
-        <div className="col-10 m-0 p-0 px-5">
+        <div className="col-6 m-0 p-0 px-2">
           <h1>{title}</h1>
         </div>
       </div>

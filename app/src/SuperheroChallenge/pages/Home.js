@@ -19,7 +19,6 @@ const Home = () => {
       history.push('/Alkemy_Superhero/access')
   }
 
-
   const teamPowerstats = state.team.heroes.reduce( (a,b) => {
     return a = {
       'Intelligence': a.Intelligence + parseInt(b.powerstats.intelligence),
@@ -41,9 +40,10 @@ const Home = () => {
   const createTeamCards = () => {
     if(state.team.heroes.length === 0){
       return (
-        <div className='display-6 lead text-light text-center'>
-          <p className='display-5 text-light'>Here you could see your team.</p><p className='display-5 text-warning'>¡IF YOU HAD ONE!</p>
-          <img src={jokerCard} alt='joker card' className='img-fluid rounded'/>
+        <div className='display-6 lead text-light d-flex flex-column justify-content-center align-items-center'>
+          <p className='display-4 text-light'>Here you could see your team.</p>
+          <img src={jokerCard} alt='joker card' className='img-fluid'/>
+          <p className='text-warning'>¡IF YOU HAD ONE!</p>
         </div>
       )
     }
@@ -54,10 +54,10 @@ const Home = () => {
     <div className="Superhero-Home-Container">
       <Header title='Welcome Hero'/>
       <div className='pb-4 d-md-flex align-content-center w-100 px-3'>
-        <div className='col-md-4 p-1 my-2'>
+        <div className='col-md-4 px-5 my-5'>
           <PonderedStats unponderedStats={teamPowerstats} title='Team Powerstats'/>
         </div>
-        <div className='col-md-8 px-3 my-3'>
+        <div className='col-md-8 px-3 my-5'>
         {
           createTeamCards()
         }

@@ -2,14 +2,17 @@
   .error{
     color: crimson;
   }
+  cursor: pointer;
+  button:disabled{
+    cursor: not-allowed;
+  }
 }
 
 
 @media screen and (min-width: 768px) {
   .form{
-    input, label{
+    input, label, button{
       font-size: 3.5rem !important;
-      
     }
     .error{
       color: crimson;

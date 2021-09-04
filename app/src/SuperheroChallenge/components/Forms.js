@@ -179,10 +179,12 @@ const Forms = ({...fields}) => {
 					/>
 					</>
 				}
-        <button type="submit" className='btn btn-outline-warning mt-4 w-100 d-flex justify-content-between align-items-center'>
-					<span>{fields.email ? 'Continue' : 'Search'}</span>
+        <button type="submit" className='btn btn-outline-warning mt-4 w-100 d-flex justify-content-between align-items-center' disabled={state.isFetching ? true : false}>
 					{
-						fields.email ? <Ricons.IoArrowForward size={20}/> : <Ricons.IoSearch size={20}/>
+						(state.isFetching && 'Loading')||<span>{fields.email ? 'Continue' : 'Search'}</span>
+					}
+					{
+						(state.isFetching && <div className="spinner-grow text-warning" role="status" style={{width: "3rem", height: "3rem"}}></div>)||(fields.email ? <Ricons.IoArrowForward size={20}/> : <Ricons.IoSearch size={20}/>)
 					}
 				</button>
     </Form>

@@ -6,8 +6,7 @@ import { motion } from "framer-motion"
 
 const Pagination = ({findedHeros}) => {
 
-  const displayOneByOne = true
-
+  const displayOneByOne = window.innerWidth <= 426
 
   const makePagination = () => {
     const HeroPages = []
@@ -38,7 +37,7 @@ const Pagination = ({findedHeros}) => {
           <Card hero={hero} displayOneByOne={displayOneByOne}/>  
         </motion.li>
         :
-        <motion.li key={hero.id} style={{zIndex: index+1, marginRight: '-300px', padding: '0.5rem', borderRadius: '5px'}} whileHover={{ marginRight: "0px", marginLeft: '10px', zIndex: 9999 }}>
+        <motion.li key={hero.id} style={{width: '30%', zIndex: index+1, marginRight: '-300px', padding: '0.5rem', borderRadius: '5px'}} whileHover={{ marginRight: "0px", marginLeft: '10px', zIndex: 9999 }}>
           <Card hero={hero}/>  
         </motion.li>
     })

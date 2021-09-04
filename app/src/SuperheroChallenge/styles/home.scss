@@ -47,3 +47,20 @@
         }
     }
 }
+
+@media screen and (min-width: 758px)  {
+    .display-2{
+        font-size: 10rem !important;
+    }
+    .display-6{
+        font-size: 8rem !important;
+    }
+    .Superhero-Home-Footer{
+        justify-content: center !important;
+        button{
+            margin-right: 3rem;
+            width: 15% !important;
+            justify-content: space-between !important;
+        }
+    }
+}

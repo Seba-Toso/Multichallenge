@@ -21,7 +21,7 @@ const Login = () => {
                 <Forms email password type='login'/>
             </div>
             <div className='mainHome-Selector my-2'>
-                <button className="btn btn-outline-dark mt-4 w-100 d-flex justify-content-between align-items-center">Back to Home</button>
+                <button className="btn btn-outline-dark mt-4 w-100 d-flex justify-content-between align-items-center" onClick={backStart}>Back to Home</button>
             </div>
         </div>
     )

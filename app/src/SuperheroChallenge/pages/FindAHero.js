@@ -8,12 +8,14 @@ import Alerts from '../components/Alerts';
 import * as Ricons from 'react-icons/io5'
 
 import '../styles/findHero.scss'
+import batiLoader from '../assets/comicLoader.gif'
 
 const FindAHero = () => {
     const { state, dispatch } = usePersistedContext()
     const [alertState, setAlertState] = useState({type: 'success', trigger: 'fade'})
     const [findedHeros, setFindedHeros] = useState([]);
     const history = useHistory()
+    
     const addHero = (id) => {
         dispatch({type: 'ADD_HERO'})
         const selectedHero = findedHeros.find(hero => hero.id === id)
@@ -64,13 +66,25 @@ const FindAHero = () => {
             <Header title='Hall of Fame'/>
             <Alerts type={alertState.type} trigger={alertState.trigger}/>
             <div className='mainHome-Selector d-md-flex w-100 py-4'>
-                <div className='mx-5 pb-5'>
+                <div className='mx-5 pb-5 find-hero-form' >
                     <Forms name id type='search' setFindedHeros={setFindedHeros}/>
                 </div>
-                <div className='mx-3 my-5'>
+                <div className='mx-3 my-5 find-hero-cards'>
                 {
-                    findedHeros.length > 0 && 
-                    <Pagination findedHeros={findedHeros} addHero={addHero} removeHero={removeHero}/>
+                    (
+                        state.isFetching 
+                        && 
+                        <div className='display-6 lead text-light d-flex flex-column justify-content-center align-items-center' >
+                            <div style={{borderRadius: '100%', overflow: 'hidden'}} className='w-25'>
+                                <img src={batiLoader} alt='joker card' className='img-fluid'/>
+                            </div>
+                        </div>
+                    )
+                    ||
+                    (
+                        findedHeros.length > 0 && 
+                        <Pagination findedHeros={findedHeros} addHero={addHero} removeHero={removeHero}/>
+                    )
                 }
                 </div>
             </div>
