@@ -1,17 +1,20 @@
 @import '~bootstrap/scss/bootstrap.scss';
 
 .header{
-  .previous-page{
-    border: 2px solid #f0f0f0;
-    border-radius: 50%;
-    background-color: #f0f0f010;
-    transition: all 200ms ease-in-out;
-    cursor: pointer;
+  h1{
+    font-size: 6rem;
+    text-align: right;
   }
-  .previous-page:hover{
-    border: 2px solid #f0f0f0;
-    border-radius: 50%;
-    background-color: #f0f0f030;
+}
+
+@media screen and (min-width: 768px) {
+  .header{
+    svg{
+      font-size: 42px !important;
+    }
+    h1{
+      font-size: 8rem !important;
+      text-align: left !important;
+    }
   }
-  
 }

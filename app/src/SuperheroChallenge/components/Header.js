@@ -1,26 +1,33 @@
-import React, {useEffect} from 'react'
-import {Link, useHistory, useLocation} from 'react-router-dom'
-import {GrPrevious} from 'react-icons/gr'
+import * as Ricons from 'react-icons/io5'
 import '../styles/header.scss'
 
 
 const Header = ({title}) => {
-  const history = useHistory()
-  const location = useLocation()
-  const goBackHandler = () => {
-    history.goBack()
+  
+  const iconSelector = () => {
+    switch (title) {
+      case 'Hall of Fame':
+        return <Ricons.IoFlame className='display-2 p-3' size={36}/>
+      case 'Welcome Hero':
+        return <Ricons.IoHome className='display-2 p-3' size={36}/>
+      
+      default:
+        return <Ricons.IoReader className='display-2 p-3' size={36}/>  
+    }
   }
 
   return (
-    <div className="header mt-0" style={{backgroundColor: '#f0f0f010'}}>
+    <div className="header mt-0 text-light" style={{backgroundColor: '#f0f0f010'}}>
       <div className="row w-100">
         <div className="col-2">
-          <div className='d-flex justify-content-center align-items-center  h-100' >
-            <GrPrevious className='previous-page display-2 p-3' color='plain' onClick={goBackHandler}/>
+          <div className='d-flex justify-content-center align-items-center h-100' >
+            {
+              iconSelector()
+            }
           </div>
         </div>
-        <div className="col-10 m-0 p-0">
-          <h1 className='display-1 text-light'> {title} </h1>
+        <div className="col-10 m-0 p-0 px-5">
+          <h1>{title}</h1>
         </div>
       </div>
     </div>

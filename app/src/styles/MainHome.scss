@@ -5,12 +5,17 @@
     height: 100%;
     margin-top: -2rem;
     background-color: #0f0f0f;
+    font-size: 3rem;
     .display-1{
+        color: aliceblue;
         font-size: 8rem;
         font-weight: 500;
     }
     .lead{
-        font-size: 2rem;
+        font-size: 4rem;
+    }
+    input, button{
+        font-size: 3rem;
     }
     .mainHome-Selector {
         width: max-content;
@@ -20,12 +25,13 @@
             padding-right: 1rem;
             a{
                 text-decoration: none;
-                font-size: 1.15rem;
+                font-size: 3rem;
                 color: indianred;
             }
         }
         select {
             border: 4px solid purple;
+            font-size: 3rem;
         }
     }
 }

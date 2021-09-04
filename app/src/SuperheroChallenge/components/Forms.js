@@ -3,7 +3,7 @@ import {useHistory} from 'react-router-dom'
 import { usePersistedContext } from 'react-persist-context'
 import { Formik, Field, Form } from 'formik';
 import * as Yup from "yup";
-import * as Ricons from 'react-icons/gr'
+import * as Ricons from 'react-icons/io5'
 
 import { login, searchHero } from '../services/formSubmits'
 import '../styles/forms.scss'
@@ -179,12 +179,10 @@ const Forms = ({...fields}) => {
 					/>
 					</>
 				}
-        <button type="submit" className='btn btn-outline-warning mt-4 w-25 d-flex justify-content-between align-items-center'>
+        <button type="submit" className='btn btn-outline-warning mt-4 w-100 d-flex justify-content-between align-items-center'>
+					<span>{fields.email ? 'Continue' : 'Search'}</span>
 					{
-						fields.email ?
-						<><span>Continue</span><Ricons.GrFormNext/></>
-						:
-						<><span>Search</span><Ricons.GrFormSearch/></>
+						fields.email ? <Ricons.IoArrowForward size={20}/> : <Ricons.IoSearch size={20}/>
 					}
 				</button>
     </Form>

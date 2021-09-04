@@ -26,8 +26,6 @@ const SuperHeroRouter = () => {
 
   useEffect(() => {
     if(user){
-      dispatch({type: 'LOGGIN'})
-      dispatch({type: 'LOGIN_SUCCESS', payload: true})
       history.push('./Alkemy_Superhero')
     }
   },[history, user])
@@ -44,6 +42,12 @@ const SuperHeroRouter = () => {
   const store = {
     state: initialState,
     reducer: HeroReducer
+  }
+
+  if(state.isFetching){
+    return (
+      <h1>Fetching</h1>
+    )
   }
 
   return (

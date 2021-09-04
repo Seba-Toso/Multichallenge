@@ -1,8 +1,9 @@
 import * as React from "react";
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { wrap } from "popmotion";
+import { motion, AnimatePresence } from "framer-motion";
 import Card from "./Card";
+import * as Ricons from 'react-icons/io5'
 
 const variants = {
   enter: (direction) => {
@@ -28,12 +29,6 @@ const variants = {
   }
 };
 
-/**
- * Experimenting with distilling swipe offset and velocity into a single variable, so the
- * less distance a user has swiped, the more velocity they need to register as a swipe.
- * Should accomodate longer swipes and short flicks without having binary checks on
- * just distance thresholds and velocity > 0.
- */
 const swipeConfidenceThreshold = 10000;
 const swipePower = (offset, velocity) => {
   return Math.abs(offset) * velocity * 4;
@@ -48,13 +43,9 @@ const CardStack = ({heroPage}) => {
   };
 
   return (
-    <div className='d-flex align-items-center'>
-      <div className="next" onClick={() => paginate(1)}>
-        {"‣"}
-      </div>
+    <div className='d-flex flex-column align-items-center'>
       <AnimatePresence initial={false} custom={direction}>
         <motion.div
-        layout
           className='text-center w-100 h-100'
           key={page}
           children={<Card hero={heroPage[stackIndex]} displayOneByOne/>}
@@ -81,8 +72,16 @@ const CardStack = ({heroPage}) => {
           }}
         />
       </AnimatePresence>
-      <div className="prev" onClick={() => paginate(-1)}>
-        {"‣"}
+      <div className='p-1 my-4 text-muted'>
+          <Ricons.IoChevronBack size={23}/>
+          <Ricons.IoChevronBack size={23}/>
+          <Ricons.IoChevronBack size={23}/>
+          <Ricons.IoChevronBack size={23}/>
+          <p className='display-5' style={{display: 'inline-block', verticalAlign: 'middle'}}>Swipe to change</p>
+          <Ricons.IoChevronForward size={23}/>
+          <Ricons.IoChevronForward size={23}/>
+          <Ricons.IoChevronForward size={23}/>
+          <Ricons.IoChevronForward size={23}/>
       </div>
     </div>
   );

@@ -32,7 +32,7 @@ const PonderedStats = ({unponderedStats, title, isColored= false}) => {
   }
 
   return (
-    <div className='d-flex flex-column justify-content-between'>
+    <div className='d-flex flex-column justify-content-between home-powerstats'>
       <h2 className='display-2 text-light'>{title}</h2>
       <ul className="list-group list-group-flush justify-content-between">
         {

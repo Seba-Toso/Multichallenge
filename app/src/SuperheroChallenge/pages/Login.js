@@ -1,7 +1,13 @@
-import {Link} from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
 import Forms from '../components/Forms'
 
 const Login = () => {
+
+    const history = useHistory()
+
+    const backStart = () => {
+        history.push('/')
+    }
 
     return (
         <div className="mainHome-Container d-flex justify-content-center align-items-center flex-column">
@@ -15,7 +21,7 @@ const Login = () => {
                 <Forms email password type='login'/>
             </div>
             <div className='mainHome-Selector my-2'>
-                <Link to='/' className="btn btn-outline-dark btn-sm">Back to Home</Link>
+                <button className="btn btn-outline-dark mt-4 w-100 d-flex justify-content-between align-items-center">Back to Home</button>
             </div>
         </div>
     )

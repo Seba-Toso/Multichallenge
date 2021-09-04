@@ -3,13 +3,15 @@ import {useHistory} from 'react-router-dom'
 import { usePersistedContext } from 'react-persist-context'
 import Forms from '../components/Forms'
 import Header from '../components/Header';
-import Pagination from '../components/Pagination';
-import * as Ricons from 'react-icons/gr'
+import Pagination from '../components/Pagination'
+import Alerts from '../components/Alerts';
+import * as Ricons from 'react-icons/io5'
+
 import '../styles/findHero.scss'
 
 const FindAHero = () => {
     const { state, dispatch } = usePersistedContext()
-
+    const [alertState, setAlertState] = useState({type: 'success', trigger: 'fade'})
     const [findedHeros, setFindedHeros] = useState([]);
     const history = useHistory()
     const addHero = (id) => {
@@ -32,6 +34,7 @@ const FindAHero = () => {
         }else{
             updatedBad+=1
         }
+        setAlertState({type: 'success', trigger: ''})
         alert('Hero added to your team')
         dispatch({type: 'ADD_HERO_SUCCESS', payload: {good: updatedGood, bad: updatedBad, heroes: updatedHeroes}})
     }
@@ -55,16 +58,11 @@ const FindAHero = () => {
         alert('Hero removed from your team')
         dispatch({type: 'REMOVE_HERO_SUCCESS', payload: {good: updatedGood, bad: updatedBad, heroes: updatedHeroes}})
     }
-    const logout = () => {
-        dispatch({type: 'LOGGOUT'})
-        dispatch({type: 'LOGGOUT_SUCCESS'})
-        localStorage.removeItem('token')
-        history.push('/Alkemy_Superhero/access')
-    }
 
     return (
         <div className="Superhero-Home-Container">
-            <Header title='Hall of Fame' />
+            <Header title='Hall of Fame'/>
+            <Alerts type={alertState.type} trigger={alertState.trigger}/>
             <div className='mainHome-Selector d-md-flex w-100 py-4'>
                 <div className='mx-5 pb-5'>
                     <Forms name id type='search' setFindedHeros={setFindedHeros}/>
@@ -77,16 +75,17 @@ const FindAHero = () => {
                 </div>
             </div>
             <div className='Superhero-Home-Footer d-flex display-4 text-center'>
-                <button className='bg-warning w-50 d-flex justify-content-around align-items-center' onClick={() => window.scrollTo(0,0)}>
-                    <p className='text-dark'>Go Top</p>
-                    <Ricons.GrFormUp />
+                <button className='bg-warning w-50 d-flex justify-content-around align-items-center flex-row-reverse text-light' onClick={() => history.goBack()}>
+                    <p>Back</p>
+                    <Ricons.IoArrowBack size={23}/>
                 </button>
-                <button className='bg-danger w-50 d-flex justify-content-around align-items-center' onClick={logout}>
-                    <p className='text-dark'>Logout</p>
-                    <Ricons.GrLogout />
+                <button className='bg-danger w-50 d-flex justify-content-around align-items-center' onClick={() => window.scrollTo(0,0)}>
+                    <p>Go Top</p>
+                    <Ricons.IoArrowUp size={23}/>
                 </button>
             </div>
         </div>
+        
     )
 }
 

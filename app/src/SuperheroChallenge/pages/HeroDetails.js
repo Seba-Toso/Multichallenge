@@ -1,7 +1,12 @@
-import {Link, useHistory, useParams} from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import {useHistory, useParams} from 'react-router-dom'
 import { usePersistedContext } from 'react-persist-context'
 import { searchHero } from '../services/formSubmits'
-import { useState, useEffect } from 'react'
+import { addHero, removeHero } from '../services/teamActions';
+import Header from '../components/Header'
+import * as Ricons from 'react-icons/io5'
+
+import '../styles/heroDetails.scss'
 
 const HeroDetails = () => {
     const { state, dispatch } = usePersistedContext()
@@ -12,6 +17,15 @@ const HeroDetails = () => {
     const goBack = () => {
         history.goBack()
     }
+
+    const addHeroHandler = () =>{
+        addHero(hero, state['team'], dispatch)
+    }
+    
+    const removeHeroHandler = () => {
+        removeHero(hero, state['team'], dispatch)
+    }
+    
 
     const { id } = useParams();
     const { heroes } = state.team
@@ -77,20 +91,16 @@ const HeroDetails = () => {
         return null
     }
     return (
-        <div className="mainHome-Container d-flex justify-content-center align-items-center flex-column">
-            <div className='pb-5 h-25'>
-                <h1 className='display-1'> Hero Details </h1>
-            </div>
-            <div className='pb-4 w-75'>
-                <div className="card w-100 h-100 border-warning" >
+        <div className="Superhero-Home-Container">
+            <Header title={hero?.name || 'Hero Name'}/>
+            <div className='py-2 w-100'>
+                <div className='w-100 d-flex justify-content-center align-content-center'>
+                    <div className="card w-75 h-100 border-warning" >
                     <div className="row g-0">
                         <div className="col-md-4">
-                            <img src={hero?.image?.url || 'Hero Name'} className="img-fluid rounded-start h-100 w-100" alt="..."/>
+                            <img src={hero?.image?.url || 'Hero Name'} className="img-fluid rounded h-100 w-100" alt="Hero avatar"/>
                         </div>
                         <div className="col-md-8">
-                            <div className="card-header bg-warning">
-                                <h5 className="card-title display-2">{hero?.name || 'Hero Name'}</h5>
-                            </div>
                             <div className="card-body">
                                 <div className="card-text">
                                     <ul className="list-group list-group-flush">
@@ -121,6 +131,12 @@ const HeroDetails = () => {
                                         <li className="list-group-item d-flex justify-content-between">
                                             <h5 className='d-inline display-6 m-0 p-0'>Trabaja en: </h5>
                                             {hero?.work?.base.length > 1 ? makeSlider('trabajo', hero?.work?.base) : hero?.work?.base}
+                                        </li>
+                                        <li className="list-group-item"> 
+                                            <div className='d-flex-fluid justify-content-around align-items-center bg-light mt-2'>
+                                                <button className='substract w-50 h-100 p-2 m-0' onClick={removeHeroHandler}><Ricons.IoRemoveCircleOutline size={25} className='text-light'/></button>
+                                                <button className='add w-50 h-100 p-2 m-0' onClick={addHeroHandler}><Ricons.IoAddCircleOutline size={25} className='text-light'/></button>
+                                            </div>
                                         </li>                               
                                     </ul>
                                 </div>
@@ -128,10 +144,17 @@ const HeroDetails = () => {
                         </div>
                     </div>
                 </div>
+                </div>
             </div>
-            <div className='mainHome-Selector h-25'>
-                <Link to='/Alkemy_Superhero' className="btn btn-outline-dark btn-sm">Home</Link>
-                <button onClick={goBack}>Back</button>
+            <div className='Superhero-Home-Footer d-flex display-4 text-center text-light'>
+                <button className='bg-warning w-50 d-flex justify-content-around align-items-center flex-row-reverse' onClick={() => history.goBack()}>
+                    <p>Back</p>
+                    <Ricons.IoArrowBack size={23}/>
+                </button>
+                <button className='bg-danger w-50 d-flex justify-content-around align-items-center' onClick={() => history.push('/Alkemy_Superhero')}>
+                    <p>Home</p>
+                    <Ricons.IoHome size={23}/>
+                </button>
             </div>
         </div>
     )

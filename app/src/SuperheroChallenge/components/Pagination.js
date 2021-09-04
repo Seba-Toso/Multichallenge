@@ -8,6 +8,7 @@ const Pagination = ({findedHeros}) => {
 
   const displayOneByOne = true
 
+
   const makePagination = () => {
     const HeroPages = []
     const totalPages = new Array(Math.ceil(findedHeros.length / 10)).fill(1, 0, Math.ceil(findedHeros.length / 10))
