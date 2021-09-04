@@ -1,70 +1,42 @@
-# Getting Started with Create React App
+---
+---
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h5>Hi stranger, I’m Sebastian!</h5>
+<h2>Welcome to 👉 Multichallenge 👈</h2>
+<p>Here you will find all the challenges, excersises or tests that I have done on my way as a developer</p>
 
-## Available Scripts
+<p>This project will be deployed soon  🙌.</p>
 
-In the project directory, you can run:
+<h4>Project guide</h4>
+<p>Watch out!👮‍♂️ Before you make a move, you need to read this to avoid getting confused in the real maze that is projects scafolding.
+<ol>
+<li>
+<h5><strong>STRUCTURE 🤯</strong></h5>
+<p>A project inside in a project. The bigger picture is <em>a Monorepo</em> project made with NodeJS v16 Workspace feature in which many other projects coexist as individual projects</p>
+<em>Api - </em><p>A general Api to manage all projects backend. A main routing that splites into a multiple sub-routing for individual projects.</p>
+<em>App - </em><p>A container for individual projects folders, plus general routing, pages, styles and components.</p>
+</li>
+<li>
+<h5>ROUTING 🗺</h5>
+<em>Main Home - </em><p>Not much to say, is a selector, choose a project.</p>
+<em>Project Home - </em><p>Here starts the real adventure, the individual project.</p>
+</li>
+<li>
+<h5>PROJECTS 🗺</h5>
+  <ol>
+    <li>
+    <h6>Alkemy React Frontend challenge - SuperHero Api 🗺</h6>
+    <p>Develop an application to create a team of superheroes that will consume an external API and it will show different attributes at the individual level of each member and of the consolidated team.</p>
+    </li>
+  </ol>
+</li>
+</ol>
+<p>That's it, have fun!</p>
 
-### `npm start`
+<br>
+<br>
+<p><strong>Live long and prosper</strong> 🖖</p>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+---
+---
