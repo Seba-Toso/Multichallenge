@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import {useHistory} from 'react-router-dom'
-import { usePersistedContext } from 'react-persist-context'
+import { connect } from 'react-redux'
 import Forms from '../components/Forms'
 import Header from '../components/Header';
 import Pagination from '../components/Pagination'
@@ -10,8 +10,7 @@ import '../styles/findHero.scss'
 import batiLoader from '../assets/comicLoader.gif'
 import batiNotFound from '../assets/batmanNotFound.gif'
 
-const FindAHero = () => {
-    const { state } = usePersistedContext()
+const FindAHero = ({isFetching}) => {
     const [findedHeros, setFindedHeros] = useState([]);
     const history = useHistory()
     const displayOneByOne = window.innerWidth <= 426
@@ -50,7 +49,7 @@ const FindAHero = () => {
                 }
                 {
                     (
-                        state.isFetching 
+                        isFetching 
                         && 
                         <div className='display-6 lead text-light d-flex flex-column justify-content-center align-items-center' >
                             <div style={{borderRadius: '100%', overflow: 'hidden'}} className='w-25'>
@@ -93,4 +92,13 @@ const FindAHero = () => {
     )
 }
 
-export default FindAHero;
+
+const mapStateToProps = (state) => {
+    //console.log(state)
+    const {isFetching} = state.heroReducer
+    return {
+        isFetching
+    }
+}
+
+export default connect(mapStateToProps)(FindAHero)

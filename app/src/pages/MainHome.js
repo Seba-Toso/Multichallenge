@@ -18,6 +18,7 @@ const MainHome = () => {
                     </button>
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                         <li><Link to='/Alkemy_Superhero/home' className='lead'>Alkemy React Challenge - Superhero</Link></li>
+                        <li><a href='https://rickandmortydatafinder.netlify.app/' className='lead'>Puzzle React Challenge - Rick & Morty</a></li>
                     </ul>
                 </div>
             </div>

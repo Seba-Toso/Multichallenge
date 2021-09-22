@@ -1,5 +1,5 @@
 import {useHistory} from 'react-router-dom'
-import { usePersistedContext } from 'react-persist-context'
+import { connect } from 'react-redux'
 import Header from '../components/Header'
 import Pagination from '../components/Pagination'
 import PonderedStats from '../components/PonderedStats'
@@ -8,8 +8,7 @@ import * as Ricons from 'react-icons/io5'
 import '../styles/home.scss'
 import jokerCard from '../assets/jokercard.gif'
 
-const Home = () => {
-  const { state, dispatch } = usePersistedContext()
+const Home = ({team, dispatch}) => {
   const history = useHistory()
 
   const logout = () => {
@@ -19,7 +18,7 @@ const Home = () => {
       history.push('/Alkemy_Superhero/access')
   }
 
-  const teamPowerstats = state.team.heroes.reduce( (a,b) => {
+  const teamPowerstats = team.heroes.reduce( (a,b) => {
 
     const checkValue = (value) => {
       return (
@@ -46,7 +45,7 @@ const Home = () => {
   })
 
   const createTeamCards = () => {
-    if(state.team.heroes.length === 0){
+    if(team.heroes.length === 0){
       return (
         <div className='display-6 lead text-light d-flex flex-column justify-content-center align-items-center'>
           <p className='display-4 text-light'>Here you could see your team.</p>
@@ -55,7 +54,7 @@ const Home = () => {
         </div>
       )
     }
-    return <Pagination findedHeros={state.team.heroes} />
+    return <Pagination findedHeros={team.heroes} />
   }
 
   return (
@@ -90,4 +89,13 @@ const Home = () => {
   )
 }
 
-export default Home;
+const mapStateToProps = (state) => {
+  console.log(state)
+  const {team} = state.heroReducer
+  return {
+    team
+  }
+}
+
+export default connect(mapStateToProps)(Home)
+

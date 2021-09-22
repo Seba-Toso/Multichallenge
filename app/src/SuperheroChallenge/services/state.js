@@ -1,3 +1,7 @@
+import { createStore, combineReducers, compose, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
+
+//initial Store
 export const initialState = {
   isFetching: false,
   isLogged: false,
@@ -9,7 +13,9 @@ export const initialState = {
   }
 }
 
-export const HeroReducer = (state, action) => {
+
+//main reducer
+export const heroReducer = (state = initialState, action) => {
   //console.log(action);
   switch (action.type) {
     case 'LOGIN': 
@@ -61,3 +67,20 @@ export const HeroReducer = (state, action) => {
       return state;
   }
 }
+
+const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+
+let rootReducer = combineReducers({
+  heroReducer,
+})
+
+
+export default function generateStore(){
+  let store = createStore(
+    rootReducer,
+    composeEnhancers(applyMiddleware(thunk))
+  )
+
+  return store
+}
+

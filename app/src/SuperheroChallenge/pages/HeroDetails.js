@@ -1,29 +1,40 @@
 import { useState, useEffect } from 'react'
 import {useHistory, useParams} from 'react-router-dom'
-import { usePersistedContext } from 'react-persist-context'
+import { connect } from 'react-redux'
 import { searchHero } from '../services/formSubmits'
-import { addHero, removeHero } from '../services/teamActions';
+import { addHeroAction, removeHeroAction } from '../services/teamActions';
+import { useAlert } from 'react-alert'
 import Header from '../components/Header'
 import * as Ricons from 'react-icons/io5'
 
 import '../styles/heroDetails.scss'
 
-const HeroDetails = () => {
-    const { state, dispatch } = usePersistedContext()
+const HeroDetails = ({team, isFetching, dispatch}) => {
     const [hero, setHero] = useState({})
     
     const history = useHistory()
+    const alert = useAlert()
+
+    const fireAlert = (type, message) => {
+        alert.show(message, {
+            timeout: 2000,
+            type: type,
+            containerStyle: {
+            zIndex: 9999
+            }
+        })
+    }
 
     const addHeroHandler = () =>{
-        addHero(hero, state['team'], dispatch)
+        addHeroAction(hero, team, dispatch, fireAlert)
     }
     
     const removeHeroHandler = () => {
-        removeHero(hero, state['team'], dispatch)
+        removeHeroAction(hero, team, dispatch, fireAlert)
     }
     
     const { id } = useParams();
-    const { heroes } = state.team
+    const { heroes } = team
     useEffect(() => {
         dispatch({type: 'GET_HEROES'})
         const fetchHero = async () => {
@@ -78,7 +89,7 @@ const HeroDetails = () => {
         )
     }
     
-    if(state.isFetching && !hero){
+    if(isFetching && !hero){
         return null
     }
     return (
@@ -154,4 +165,14 @@ const HeroDetails = () => {
     )
 }
 
-export default HeroDetails;
+
+const mapStateToProps = (state) => {
+    //console.log(state)
+    const {team, isFetching} = state.heroReducer
+    return {
+        team,
+        isFetching
+    }
+}
+
+export default connect(mapStateToProps)(HeroDetails)

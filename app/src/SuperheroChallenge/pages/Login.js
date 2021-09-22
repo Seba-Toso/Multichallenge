@@ -1,9 +1,8 @@
-import { usePersistedContext } from 'react-persist-context'
 import {useHistory, useLocation} from 'react-router-dom'
+import { connect } from 'react-redux'
 import Forms from '../components/Forms'
 
 const Login = () => {
-	const { state, dispatch } = usePersistedContext()
 	const history = useHistory()
     const location = useLocation()
 
@@ -13,7 +12,7 @@ const Login = () => {
 
     const setToken = (token) => {
         console.log(token);
-        dispatch({type: 'LOGIN_SUCCESS', payload: true})
+        
         localStorage.setItem('token', token)
         setTimeout(() => {
             console.log('1');
@@ -48,4 +47,10 @@ const Login = () => {
     )
 }
 
-export default Login;
+const mapStateToProps = (state) => {
+	//console.log(state)
+	return {
+	}
+}
+
+export default connect(mapStateToProps)(Login)

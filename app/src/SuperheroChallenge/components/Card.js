@@ -1,16 +1,15 @@
 import { useState } from 'react';
 import {Link} from 'react-router-dom'
 import * as Ricons from 'react-icons/io5'
-import { usePersistedContext } from 'react-persist-context'
-import { addHero, removeHero } from '../services/teamActions';
+import { connect } from 'react-redux'
+import { addHeroAction, removeHeroAction } from '../services/teamActions';
 import { useAlert } from 'react-alert'
 
 import '../styles/cards.scss'
 import jokerImagePlaceholder from '../assets/jokerCardImage.jpg'
 
-const Card = ({hero, displayOneByOne}) => {
+const Card = ({hero, displayOneByOne, team, addHeroAction, removeHeroAction}) => {
 
-  const { state, dispatch } = usePersistedContext()
   const [url, setUrl] = useState(hero.image.url || '')
   const alert = useAlert()
 
@@ -25,11 +24,11 @@ const Card = ({hero, displayOneByOne}) => {
   }
 
   const addHeroHandler = () => {
-    addHero(hero, state['team'], dispatch, fireAlert)
+    addHeroAction(hero, team, fireAlert)
   }
 
   const removeHeroHandler = () => {
-    removeHero(hero, state['team'], dispatch, fireAlert)
+    removeHeroAction(hero, team, fireAlert)
   }
   
   
@@ -50,4 +49,13 @@ const Card = ({hero, displayOneByOne}) => {
   )
 }
 
-export default Card;
+const mapStateToProps = (state) => {
+	//console.log(state)
+	const {isFetching, team} = state.heroReducer
+	return {
+			isFetching,
+      team
+	}
+}
+
+export default connect(mapStateToProps, {addHeroAction, removeHeroAction})(Card)

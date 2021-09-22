@@ -1,6 +1,5 @@
 import React from 'react';
-import {useHistory} from 'react-router-dom'
-import { usePersistedContext } from 'react-persist-context'
+import { connect } from 'react-redux'
 import { Formik, Field, Form } from 'formik';
 import * as Yup from "yup";
 import * as Ricons from 'react-icons/io5'
@@ -33,9 +32,7 @@ const Validations = (type) => {
 		})
 }
 
-const Forms = ({...fields}) => {
-	
-	const { state, dispatch } = usePersistedContext()
+const Forms = ({isFetching, dispatch, ...fields}) => {
 	
 	const handleSubmit = (values) => {
 		if(fields.type === 'login'){
@@ -43,6 +40,7 @@ const Forms = ({...fields}) => {
 			login(values.email, values.password)
 			.then((res) => {
 				fields.setToken(res.token)
+				dispatch({type: 'LOGIN_SUCCESS', payload: true})
 			})
 			.catch((error)=>{
 				console.log(error)
@@ -186,12 +184,12 @@ const Forms = ({...fields}) => {
 					/>
 					</>
 				}
-        <button type="submit" className='btn btn-outline-warning mt-5 p-3 w-100 d-flex justify-content-between align-items-center' disabled={state.isFetching ? true : false}>
+        <button type="submit" className='btn btn-outline-warning mt-5 p-3 w-100 d-flex justify-content-between align-items-center' disabled={isFetching ? true : false}>
 					{
-						(state.isFetching && 'Loading')||<span>{fields.email ? 'Continue' : 'Search'}</span>
+						(isFetching && 'Loading')||<span>{fields.email ? 'Continue' : 'Search'}</span>
 					}
 					{
-						(state.isFetching && <div className="spinner-grow text-warning" role="status" style={{width: "3rem", height: "3rem"}}></div>)||(fields.email ? <Ricons.IoArrowForward size={20}/> : <Ricons.IoSearch size={20}/>)
+						(isFetching && <div className="spinner-grow text-warning" role="status" style={{width: "3rem", height: "3rem"}}></div>)||(fields.email ? <Ricons.IoArrowForward size={20}/> : <Ricons.IoSearch size={20}/>)
 					}
 				</button>
     </Form>
@@ -200,4 +198,12 @@ const Forms = ({...fields}) => {
 	)
 }
 
-export default Forms
+const mapStateToProps = (state) => {
+	//console.log(state)
+	const {isFetching} = state.heroReducer
+	return {
+			isFetching
+	}
+}
+
+export default connect(mapStateToProps)(Forms)
