@@ -8,11 +8,11 @@ import { useAlert } from 'react-alert'
 import '../styles/cards.scss'
 import jokerImagePlaceholder from '../assets/jokerCardImage.jpg'
 
-const Card = ({hero, displayOneByOne, team, addHeroAction, removeHeroAction}) => {
+const Card = ({hero, displayOneByOne, addHeroAction, removeHeroAction}) => {
 
   const [url, setUrl] = useState(hero.image.url || '')
+  
   const alert = useAlert()
-
   const fireAlert = (type, message) => {
     alert.show(message, {
       timeout: 2000,
@@ -24,11 +24,11 @@ const Card = ({hero, displayOneByOne, team, addHeroAction, removeHeroAction}) =>
   }
 
   const addHeroHandler = () => {
-    addHeroAction(hero, team, fireAlert)
+    addHeroAction(hero, fireAlert)
   }
 
   const removeHeroHandler = () => {
-    removeHeroAction(hero, team, fireAlert)
+    removeHeroAction(hero, fireAlert)
   }
   
   
@@ -51,10 +51,9 @@ const Card = ({hero, displayOneByOne, team, addHeroAction, removeHeroAction}) =>
 
 const mapStateToProps = (state) => {
 	//console.log(state)
-	const {isFetching, team} = state.heroReducer
+	const {isFetching} = state.heroReducer
 	return {
 			isFetching,
-      team
 	}
 }
 

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {useHistory} from 'react-router-dom'
 import { connect } from 'react-redux'
 import Forms from '../components/Forms'
@@ -10,8 +9,7 @@ import '../styles/findHero.scss'
 import batiLoader from '../assets/comicLoader.gif'
 import batiNotFound from '../assets/batmanNotFound.gif'
 
-const FindAHero = ({isFetching}) => {
-    const [findedHeros, setFindedHeros] = useState([]);
+const FindAHero = ({isFetching, findedHeroes}) => {
     const history = useHistory()
     const displayOneByOne = window.innerWidth <= 426
 
@@ -30,11 +28,11 @@ const FindAHero = ({isFetching}) => {
                     <div className='pb-4 w-100'>
                         <p className='display-4'>Type your hero name or id. Search priorizes name over id.</p>
                     </div>
-                    <Forms name id type='search' setFindedHeros={setFindedHeros}/>
+                    <Forms name id type='search'/>
                 </div>
                 <div className='mx-3 my-5 find-hero-cards'>
                 {
-                    findedHeros !== undefined && displayOneByOne && findedHeros.length > 0  &&
+                    findedHeroes !== undefined && displayOneByOne && findedHeroes.length > 0  &&
                     <div className='p-1 my-5 text-muted text-center'>
                         <Ricons.IoChevronBack size={11}/>
                         <Ricons.IoChevronBack size={13}/>
@@ -59,7 +57,7 @@ const FindAHero = ({isFetching}) => {
                     )
                     ||
                     (
-                        findedHeros === undefined && 
+                        findedHeroes === undefined && 
                         <div className='text-light text-center d-flex flex-column-reverse justify-content-center align-items-center' >
                             <div className='w-50 mx-5'>
                                 <img src={batiNotFound} alt='joker card' className='img-fluid'/>
@@ -73,8 +71,8 @@ const FindAHero = ({isFetching}) => {
                     )
                     ||
                     (
-                        findedHeros.length > 0 && 
-                        <Pagination findedHeros={findedHeros}/>
+                        findedHeroes.length > 0 && 
+                        <Pagination findedHeros={findedHeroes}/>
                     )
                 }
                 </div>
@@ -95,9 +93,10 @@ const FindAHero = ({isFetching}) => {
 
 const mapStateToProps = (state) => {
     //console.log(state)
-    const {isFetching} = state.heroReducer
+    const {isFetching, findedHeroes} = state.heroReducer
     return {
-        isFetching
+        isFetching,
+        findedHeroes
     }
 }
 

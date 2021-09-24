@@ -4,6 +4,7 @@ import { wrap } from "popmotion";
 import { motion, AnimatePresence } from "framer-motion";
 import Card from "./Card";
 
+//Animated card configuration
 const variants = {
   enter: (direction) => {
     return {
@@ -27,11 +28,11 @@ const variants = {
     };
   }
 };
-
 const swipeConfidenceThreshold = 10000;
 const swipePower = (offset, velocity) => {
   return Math.abs(offset) * velocity * 10;
 };
+
 
 const CardStack = ({heroPage}) => {
   const [[page, direction], setPage] = useState([0, 0]);

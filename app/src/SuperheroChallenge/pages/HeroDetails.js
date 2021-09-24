@@ -1,20 +1,20 @@
-import { useState, useEffect } from 'react'
-import {useHistory, useParams} from 'react-router-dom'
-import { connect } from 'react-redux'
-import { searchHero } from '../services/formSubmits'
-import { addHeroAction, removeHeroAction } from '../services/teamActions';
-import { useAlert } from 'react-alert'
-import Header from '../components/Header'
 import * as Ricons from 'react-icons/io5'
+import { useEffect } from 'react'
+import {useHistory, useParams} from 'react-router-dom'
+import { useAlert } from 'react-alert'
+import { connect } from 'react-redux'
+import { addHeroAction, removeHeroAction } from '../services/teamActions';
+import { getHeroAction } from '../services/formActions'
+import Header from '../components/Header'
 
 import '../styles/heroDetails.scss'
 
-const HeroDetails = ({team, isFetching, dispatch}) => {
-    const [hero, setHero] = useState({})
+const HeroDetails = ({isFetching, detailOf, getHeroAction, addHeroAction, removeHeroAction}) => {
+    const hero = isFetching ? {} : detailOf[0]
     
     const history = useHistory()
-    const alert = useAlert()
 
+    const alert = useAlert()
     const fireAlert = (type, message) => {
         alert.show(message, {
             timeout: 2000,
@@ -26,39 +26,18 @@ const HeroDetails = ({team, isFetching, dispatch}) => {
     }
 
     const addHeroHandler = () =>{
-        addHeroAction(hero, team, dispatch, fireAlert)
+        addHeroAction(hero, fireAlert)
     }
     
     const removeHeroHandler = () => {
-        removeHeroAction(hero, team, dispatch, fireAlert)
+        removeHeroAction(hero, fireAlert)
     }
     
     const { id } = useParams();
-    const { heroes } = team
-    useEffect(() => {
-        dispatch({type: 'GET_HEROES'})
-        const fetchHero = async () => {
-            let name=''
-            try {
-                const result = await searchHero(name,id)
-                dispatch({type: 'GET_HEROES_SUCCESS'})
-                setHero(result[0])
-            } catch (error) {
-                dispatch({type: 'GET_HEROES_ERROR'})
-                console.log(error);
-            } finally{
-                dispatch({type: 'CLEAR_FETCHING'})
-            }
-        }
 
-        if(heroes.find(hero => hero.id === id)){
-            let heroInState = heroes.find(hero => hero.id === id)
-            dispatch({type: 'CLEAR_FETCHING'})
-            return setHero(heroInState)
-        }else{
-            return fetchHero()
-        }
-    }, [id, heroes, dispatch])
+    useEffect(() => {
+        getHeroAction('', id, true)
+    }, [id, getHeroAction])
     
 
     const makeSlider = (id, stats) => {
@@ -168,11 +147,11 @@ const HeroDetails = ({team, isFetching, dispatch}) => {
 
 const mapStateToProps = (state) => {
     //console.log(state)
-    const {team, isFetching} = state.heroReducer
+    const {isFetching, detailOf} = state.heroReducer
     return {
-        team,
-        isFetching
+        isFetching,
+        detailOf
     }
 }
 
-export default connect(mapStateToProps)(HeroDetails)
+export default connect(mapStateToProps, {getHeroAction, addHeroAction, removeHeroAction})(HeroDetails)

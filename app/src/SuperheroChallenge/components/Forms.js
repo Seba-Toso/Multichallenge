@@ -1,11 +1,11 @@
-import React from 'react';
+import { logginAction, getHeroAction } from '../services/formActions'
 import { connect } from 'react-redux'
 import { Formik, Field, Form } from 'formik';
 import * as Yup from "yup";
 import * as Ricons from 'react-icons/io5'
 
-import { login, searchHero } from '../services/formSubmits'
 import '../styles/forms.scss'
+
 
 const Validations = (type) => {
 	return type === 'login' ?
@@ -32,34 +32,15 @@ const Validations = (type) => {
 		})
 }
 
-const Forms = ({isFetching, dispatch, ...fields}) => {
-	
+const Forms = ({isFetching, findedHeroes, logginAction, getHeroAction, ...fields}) => {
+	const {type, email, password, id, name} = fields
+
 	const handleSubmit = (values) => {
-		if(fields.type === 'login'){
-			dispatch({type: 'LOGGIN'})
-			login(values.email, values.password)
-			.then((res) => {
-				fields.setToken(res.token)
-				dispatch({type: 'LOGIN_SUCCESS', payload: true})
-			})
-			.catch((error)=>{
-				console.log(error)
-			})
-			.finally(() => {
-				console.log('clear fetching');
-				dispatch({type: 'CLEAR_FETCHING'})
-			})
+		if(type === 'login'){
+			return logginAction(values.email, values.password)
 		}
-		if(fields.type === 'search'){
-			dispatch({type: 'GET_HEROES'})
-			searchHero(values.name, values.id)
-			.then((result)=>{
-				dispatch({type: 'GET_HEROES_SUCCESS', payload: result})
-				fields.setFindedHeros(result)
-			})
-			.finally(() => {
-				dispatch({type: 'CLEAR_FETCHING'})
-			})
+		if(type === 'search'){
+			return getHeroAction(values.name, values.id, false)
 		}
 	}
 
@@ -78,7 +59,7 @@ const Forms = ({isFetching, dispatch, ...fields}) => {
     <Form className='form' autoComplete='off'>
 
 				{
-					fields.email && 
+					email && 
 					<>
 					<div className='d-flex justify-content-between'>
 						<label htmlFor="email" className='form-label mt-2'>Email</label>
@@ -105,7 +86,7 @@ const Forms = ({isFetching, dispatch, ...fields}) => {
 				}
 
 				{
-					fields.password && 
+					password && 
 					<>
 					<div className='d-flex justify-content-between'>
 						<label htmlFor="password" className='form-label mt-2'>Password</label>
@@ -132,7 +113,7 @@ const Forms = ({isFetching, dispatch, ...fields}) => {
 				}
 
 				{
-					fields.name && 
+					name && 
 					<>
 					<div className='d-flex justify-content-between'>
 						<label htmlFor="name" className='form-label mt-2'>Name</label>
@@ -159,7 +140,7 @@ const Forms = ({isFetching, dispatch, ...fields}) => {
 				}
 
 				{
-					fields.id && 
+					id && 
 					<>
 					<div className='d-flex justify-content-between'>
 						<label htmlFor="id" className='form-label mt-2'>ID</label>
@@ -199,11 +180,11 @@ const Forms = ({isFetching, dispatch, ...fields}) => {
 }
 
 const mapStateToProps = (state) => {
-	//console.log(state)
-	const {isFetching} = state.heroReducer
+	const {isFetching, findedHeroes} = state.heroReducer
 	return {
-			isFetching
+			isFetching,
+			findedHeroes
 	}
 }
 
-export default connect(mapStateToProps)(Forms)
+export default connect(mapStateToProps, {logginAction, getHeroAction})(Forms)

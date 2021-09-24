@@ -1,11 +1,17 @@
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 
-//initial Store
+import {ADD_HERO, ADD_HERO_ERROR , ADD_HERO_SUCCESS , REMOVE_HERO , REMOVE_HERO_ERROR , REMOVE_HERO_SUCCESS } from './teamActions'
+import {LOGGIN, LOGGIN_ERROR, LOGGIN_SUCCESS, GET_HEROES, GET_HEROES_ERROR, GET_HEROES_SUCCESS, GET_HEROE_DETAIL, GET_HEROE_DETAIL_ERROR,GET_HEROE_DETAIL_SUCCESS, CLEAR_FETCHING} from './formActions'
+import {LOGGOUT, LOGGOUT_SUCCESS} from '../pages/Home'
+
+//initial State
 export const initialState = {
   isFetching: false,
   isLogged: false,
   error: false,
+  findedHeroes: [],
+  detailOf: [],
   team: {
     good: 0,
     bad: 0,
@@ -18,55 +24,65 @@ export const initialState = {
 export const heroReducer = (state = initialState, action) => {
   //console.log(action);
   switch (action.type) {
-    case 'LOGIN': 
+    case LOGGIN: 
       return {...state, isFetching: true, error: false};
 
-    case 'LOGIN_SUCCESS': 
+    case LOGGIN_SUCCESS: 
       return {...state, isLogged: true, isFetching: false};
 
-    case 'LOGIN_ERROR': 
+    case LOGGIN_ERROR: 
       return {...state, isLogged: false, isFetching: false, error: false};
 
-    case 'LOGGOUT': 
+    case LOGGOUT: 
       return {...state, isFetching: true, error: false};
 
-    case 'LOGGOUT_SUCCESS': 
+    case LOGGOUT_SUCCESS: 
       return {...state, isFetching: false, isLogged: false, error: false};
     
-    case 'GET_HEROES': 
+    case GET_HEROES: 
       return {...state, isFetching: true, error: false};
 
-    case 'GET_HEROES_SUCCESS': 
+    case GET_HEROES_SUCCESS: 
       return {...state, findedHeroes: action.payload, isFetching: false};
 
-    case 'GET_HEROES_ERROR': 
+    case GET_HEROES_ERROR: 
       return {...state, isFetching: false, error: action.payload};
 
-    case 'ADD_HERO': 
+    case GET_HEROE_DETAIL: 
+      return {...state, isFetching: true, error: false};
+
+    case GET_HEROE_DETAIL_SUCCESS: 
+      return {...state, detailOf: action.payload, isFetching: false};
+
+    case GET_HEROE_DETAIL_ERROR: 
+      return {...state, isFetching: false, error: action.payload};
+
+    case ADD_HERO: 
       return {...state, isFetching: true};
 
-    case 'ADD_HERO_SUCCESS': 
+    case ADD_HERO_SUCCESS: 
       return {...state, isFetching: false, team: action.payload};
 
-    case 'ADD_HERO_ERROR':
+    case ADD_HERO_ERROR:
       return {...state, isFetching: false}
 
-    case 'REMOVE_HERO': 
+    case REMOVE_HERO: 
       return {...state, isFetching: true};
 
-    case 'REMOVE_HERO_SUCCESS': 
+    case REMOVE_HERO_SUCCESS: 
       return {...state, isFetching: false, team: action.payload};
       
-    case 'REMOVE_HERO_ERROR': 
+    case REMOVE_HERO_ERROR: 
       return {...state, isFetching: false};
 
-    case 'CLEAR_FETCHING': 
+    case CLEAR_FETCHING: 
       return {...state, isFetching: false};
       
     default:
       return state;
   }
 }
+
 
 const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 

@@ -5,12 +5,11 @@ export const REMOVE_HERO = 'REMOVE_HERO'
 export const REMOVE_HERO_ERROR = 'REMOVE_HERO_ERROR'
 export const REMOVE_HERO_SUCCESS = 'REMOVE_HERO_SUCCESS'
 
-export const addHeroAction = (hero, team, fireAlert) => (dispatch, getState) => {
+export const addHeroAction = (hero, fireAlert) => (dispatch, getState) => {
     dispatch({
         type: ADD_HERO
     })
-    console.log('esto');
-    
+    const {team} = getState().heroReducer
     if(team.heroes.find( heroInTeam => heroInTeam.id === hero.id)){
         fireAlert('error', 'Hero already taken.')
         return dispatch({
@@ -43,11 +42,12 @@ export const addHeroAction = (hero, team, fireAlert) => (dispatch, getState) => 
 }
 
 
-export const removeHeroAction = (hero, team, fireAlert) => (dispatch, getState) => {  
+export const removeHeroAction = (hero, fireAlert) => (dispatch, getState) => {  
     dispatch({
         type: REMOVE_HERO
     })
 
+    const {team}= getState().heroReducer
     const {heroes, good, bad} = team
 
     if(!team.heroes.find( heroInTeam => heroInTeam.id === hero.id)){

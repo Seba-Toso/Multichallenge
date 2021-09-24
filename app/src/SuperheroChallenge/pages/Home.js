@@ -4,18 +4,19 @@ import Header from '../components/Header'
 import Pagination from '../components/Pagination'
 import PonderedStats from '../components/PonderedStats'
 import * as Ricons from 'react-icons/io5'
+import {loggoutAction} from '../services/logoutAction'
 
 import '../styles/home.scss'
 import jokerCard from '../assets/jokercard.gif'
 
-const Home = ({team, dispatch}) => {
+export const LOGGOUT = 'LOGGOUT'
+export const LOGGOUT_SUCCESS = 'LOGGOUT_SUCCESS'
+
+const Home = ({team, loggoutAction}) => {
   const history = useHistory()
 
   const logout = () => {
-      dispatch({type: 'LOGGOUT'})
-      dispatch({type: 'LOGGOUT_SUCCESS'})
-      localStorage.removeItem('token')
-      history.push('/Alkemy_Superhero/access')
+    return loggoutAction(history)
   }
 
   const teamPowerstats = team.heroes.reduce( (a,b) => {
@@ -25,7 +26,6 @@ const Home = ({team, dispatch}) => {
         isNaN(value) ? 0 : value
       )
     }
-
 
     return a = {
       'Intelligence': a.Intelligence + checkValue(parseInt(b.powerstats.intelligence)) ,
@@ -89,13 +89,13 @@ const Home = ({team, dispatch}) => {
   )
 }
 
+
+
 const mapStateToProps = (state) => {
-  console.log(state)
   const {team} = state.heroReducer
   return {
     team
   }
 }
-
-export default connect(mapStateToProps)(Home)
+export default connect(mapStateToProps, {loggoutAction})(Home)
 

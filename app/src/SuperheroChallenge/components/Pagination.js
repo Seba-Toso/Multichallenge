@@ -4,10 +4,27 @@ import CardStack from './CardStack'
 import { motion } from "framer-motion"
 
 
+
+const displayFindedHeros = (heroesArrayPaginated, displayOneByOne) => {
+  return heroesArrayPaginated.map( (hero, index) => {
+    return displayOneByOne?
+      <motion.li key={hero.id} style={{zIndex: index+1, marginRight: '0px', padding: '0.5rem', borderRadius: '5px'}} whileHover={{ marginRight: "0px", marginLeft: '10px', zIndex: 9999 }}>
+        <Card hero={hero} displayOneByOne={displayOneByOne}/>  
+      </motion.li>
+      :
+      <motion.li key={hero.id} style={{width: '30%', zIndex: index+1, marginRight: '-300px', padding: '0.5rem', borderRadius: '5px'}} whileHover={{ marginRight: "0px", marginLeft: '10px', zIndex: 9999 }}>
+        <Card hero={hero}/>  
+      </motion.li>
+  })
+}
+
+
+
 const Pagination = ({findedHeros}) => {
 
   const displayOneByOne = window.innerWidth <= 426
 
+  //makePaginarion determines if shows heroes in 10 cards rows or creates stacks of cards ir rows 
   const makePagination = () => {
     const HeroPages = []
     const totalPages = new Array(Math.ceil(findedHeros.length / 10)).fill(1, 0, Math.ceil(findedHeros.length / 10))
@@ -24,24 +41,13 @@ const Pagination = ({findedHeros}) => {
         :
         (
           <ul key={index} className='p-0 m-0 px-2 d-flex' style={{listStyleType: 'none', overflow:'hidden'}}>
-            {displayFindedHeros(page)}
+            {displayFindedHeros(page, displayOneByOne)}
           </ul>
         )
       )
     })
   }
-  const displayFindedHeros = (heroesArrayPaginated) => {
-    return heroesArrayPaginated.map( (hero, index) => {
-      return displayOneByOne?
-        <motion.li key={hero.id} style={{zIndex: index+1, marginRight: '0px', padding: '0.5rem', borderRadius: '5px'}} whileHover={{ marginRight: "0px", marginLeft: '10px', zIndex: 9999 }}>
-          <Card hero={hero} displayOneByOne={displayOneByOne}/>  
-        </motion.li>
-        :
-        <motion.li key={hero.id} style={{width: '30%', zIndex: index+1, marginRight: '-300px', padding: '0.5rem', borderRadius: '5px'}} whileHover={{ marginRight: "0px", marginLeft: '10px', zIndex: 9999 }}>
-          <Card hero={hero}/>  
-        </motion.li>
-    })
-  }
+
 
   return (
     <ul className='px-5 m-0' style={{width: '100%', margin: 0, padding: 0}}>
