@@ -19,8 +19,10 @@ const Home = ({team, loggoutAction}) => {
     return loggoutAction(history)
   }
 
+  //Reduce all team stats into a one unique stat
   const teamPowerstats = team.heroes.reduce( (a,b) => {
 
+    //Some stat values are not numbers, those are turned into 0.
     const checkValue = (value) => {
       return (
         isNaN(value) ? 0 : value
@@ -44,6 +46,7 @@ const Home = ({team, loggoutAction}) => {
     'Combat': 0,
   })
 
+  //Component showed if there's no team members
   const createTeamCards = () => {
     if(team.heroes.length === 0){
       return (

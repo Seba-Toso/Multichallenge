@@ -6,6 +6,7 @@ import '../styles/header.scss'
 const Header = ({title, buttonAction, secondButtonAction, icon, secondIcon}) => {
   const showHeaderButton = window.innerWidth <= 426
 
+  //When add a new title have to add an icon here
   const iconSelector = () => {
     switch (title) {
       case 'Hall of Fame':

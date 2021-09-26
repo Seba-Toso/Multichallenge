@@ -2,6 +2,18 @@ import {Link} from 'react-router-dom'
 import '../styles/MainHome.scss'
 
 const MainHome = () => {
+    //Add projects with objects
+    const projects = [
+        {
+            title: 'Alkemy React Challenge - Superhero',
+            url: '/Alkemy_Superhero/home'
+        },
+        {
+            title: 'Puzzle React Challenge - Rick & Morty',
+            url: 'https://rickandmortydatafinder.netlify.app/'
+        },
+    ]
+
     return (
         <div className="mainHome-Container d-flex justify-content-center align-items-center flex-column">
             <div className='white-decorator-top w-100 bg-light'></div>
@@ -17,8 +29,9 @@ const MainHome = () => {
                         Open this select menu
                     </button>
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><Link to='/Alkemy_Superhero/home' className='lead'>Alkemy React Challenge - Superhero</Link></li>
-                        <li><a href='https://rickandmortydatafinder.netlify.app/' className='lead'>Puzzle React Challenge - Rick & Morty</a></li>
+                        {
+                            projects.map( project => <li><Link to={project.url} className='lead'>{project.title}</Link></li>)
+                        }
                     </ul>
                 </div>
             </div>

@@ -13,18 +13,18 @@ const Login = ({isFetching, isLogged}) => {
         return history.push('/Alkemy_Superhero/home')
     }
 
-    if(isFetching){
+    if(isFetching && !isLogged){
         return (
             <div className="mainHome-Container login d-flex justify-content-center align-items-center flex-column">
-            <div className='p-5 mx-5 welcome-container'>
-                <div className=''>
-                    <h1 className='display-1'> Loading.... </h1>
+                <div className='p-5 mx-5 welcome-container'>
+                    <div className=''>
+                        <h1 className='display-1'> Loading.... </h1>
+                    </div>
+                </div>
+                <div className='pb-4'>
+                    <p className='display-6 lead'> - hold the rag -  </p>
                 </div>
             </div>
-            <div className='pb-4'>
-                <p className='display-6 lead'> - hold the rag -  </p>
-            </div>
-        </div>
         )
     }
 

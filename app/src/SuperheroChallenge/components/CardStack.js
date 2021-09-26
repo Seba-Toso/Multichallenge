@@ -33,7 +33,7 @@ const swipePower = (offset, velocity) => {
   return Math.abs(offset) * velocity * 10;
 };
 
-
+//Card stack is render when screen width is less than 426px
 const CardStack = ({heroPage}) => {
   const [[page, direction], setPage] = useState([0, 0]);
   const stackIndex = wrap(0, heroPage.length, page);

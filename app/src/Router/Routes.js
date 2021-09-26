@@ -12,13 +12,14 @@ import SuperHeroRouter from '../SuperheroChallenge/Router'
 
 const MainRouter = () => {
 
-  let store = generateHeroStore()
+  //Projects Stores, define each one with a descriptive name
+  let heroStore = generateHeroStore()
 
     return (
         <div className="Routes">
           <Switch>
             <Route path='/Alkemy_Superhero'>
-              <Provider store={store}>
+              <Provider store={heroStore}>
                 <SuperHeroRouter path='/'/>
               </Provider>
             </Route>

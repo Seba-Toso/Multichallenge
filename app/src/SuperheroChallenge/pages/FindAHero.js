@@ -92,7 +92,6 @@ const FindAHero = ({isFetching, findedHeroes}) => {
 
 
 const mapStateToProps = (state) => {
-    //console.log(state)
     const {isFetching, findedHeroes} = state.heroReducer
     return {
         isFetching,

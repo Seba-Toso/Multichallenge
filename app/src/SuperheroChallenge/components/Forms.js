@@ -6,7 +6,7 @@ import * as Ricons from 'react-icons/io5'
 
 import '../styles/forms.scss'
 
-
+//Yup validations divider by form type
 const Validations = (type) => {
 	return type === 'login' ?
 		Yup.object().shape({
@@ -35,6 +35,7 @@ const Validations = (type) => {
 const Forms = ({isFetching, findedHeroes, logginAction, getHeroAction, ...fields}) => {
 	const {type, email, password, id, name} = fields
 
+	//Form submit launchs redux actions
 	const handleSubmit = (values) => {
 		if(type === 'login'){
 			return logginAction(values.email, values.password)

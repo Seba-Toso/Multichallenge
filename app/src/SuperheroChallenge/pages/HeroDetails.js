@@ -10,10 +10,12 @@ import Header from '../components/Header'
 import '../styles/heroDetails.scss'
 
 const HeroDetails = ({isFetching, detailOf, getHeroAction, addHeroAction, removeHeroAction}) => {
+    
     const hero = isFetching ? {} : detailOf[0]
     
     const history = useHistory()
 
+    //Alert configurations
     const alert = useAlert()
     const fireAlert = (type, message) => {
         alert.show(message, {
@@ -146,7 +148,6 @@ const HeroDetails = ({isFetching, detailOf, getHeroAction, addHeroAction, remove
 
 
 const mapStateToProps = (state) => {
-    //console.log(state)
     const {isFetching, detailOf} = state.heroReducer
     return {
         isFetching,

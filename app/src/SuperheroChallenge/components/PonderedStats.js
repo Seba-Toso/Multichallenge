@@ -13,6 +13,8 @@ const makeStatList = (podnderedStats, colors) => {
 }
 
 const PonderedStats = ({unponderedStats, title, isColored= false}) => {
+
+  //Text color for each stat, if is required, add new colors.
   const colors = [
     "#ffc107",
     "#fd7e14",
