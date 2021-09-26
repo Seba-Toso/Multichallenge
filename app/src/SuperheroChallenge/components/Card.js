@@ -50,7 +50,6 @@ const Card = ({hero, displayOneByOne, addHeroAction, removeHeroAction}) => {
 }
 
 const mapStateToProps = (state) => {
-	//console.log(state)
 	const {isFetching} = state.heroReducer
 	return {
 			isFetching,

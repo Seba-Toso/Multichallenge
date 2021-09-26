@@ -91,7 +91,7 @@ let rootReducer = combineReducers({
 })
 
 
-export default function generateStore(){
+export default function generateHeroStore(){
   let store = createStore(
     rootReducer,
     composeEnhancers(applyMiddleware(thunk))

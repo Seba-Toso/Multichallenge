@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
-import generateStore from './services/state';
-import { Provider } from 'react-redux'
+import { connect } from 'react-redux'
 import { Switch, Route, Redirect, useHistory } from "react-router-dom";
 import { transitions, positions, Provider as AlertProvider } from 'react-alert'
 import Home from "./pages/Home";
@@ -11,7 +10,7 @@ import AlertTemplate from 'react-alert-template-basic'
 
 
 
-const SuperHeroRouter = () => {
+const SuperHeroRouter = ({isFetching, isLogged}) => {
 
   const history = useHistory()
   const deviceWidth = window.innerWidth <= 426
@@ -20,10 +19,10 @@ const SuperHeroRouter = () => {
 
 
   useEffect(() => {
-    if(user){
+    if(user || isLogged){
       history.push('/Alkemy_Superhero/home')
     }
-  },[history, user])
+  },[history, user, isLogged])
 
   const PrivateRoute = ({user, path, component}) => {
     if(user){
@@ -33,8 +32,6 @@ const SuperHeroRouter = () => {
       return <Redirect to='/Alkemy_Superhero/access' component={() => <Login/>}/>
     }
   }
-
-  let store = generateStore()
 
   const alertOptions = {
     position: positions.TOP_CENTER,
@@ -49,7 +46,6 @@ const SuperHeroRouter = () => {
 
   return (
       <div className="Routes">
-        <Provider store={store}>
           <AlertProvider template={AlertTemplate} {...alertOptions}>
             <Switch>
               <Route path='/Alkemy_Superhero/access' component={Login}/>'
@@ -58,10 +54,18 @@ const SuperHeroRouter = () => {
               <PrivateRoute user={user} path='/Alkemy_Superhero/home' component={Home}/>
             </Switch>
           </AlertProvider>
-        </Provider>
       </div>
   )
 }
 
-export default SuperHeroRouter;
+const mapStateToProps = (state) => {
+	const {isFetching, isLogged} = state.heroReducer
+	return {
+			isFetching,
+      isLogged
+	}
+}
+
+export default connect(mapStateToProps)(SuperHeroRouter)
+
   
